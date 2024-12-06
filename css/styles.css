@@ -1,0 +1,468 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body { 
+  display: grid;
+  height: 100%;
+  min-height: 100vh;
+  overflow-y: auto; /* Allows vertical scrolling */
+  width: 100%;
+  background: linear-gradient(45deg, #A50044, #004D98, #ed6b00); /* Barca colors */
+  background-size: 300% 300%; /* Oversized for animation effect */
+  animation: moveGradient 12s ease infinite; /* Smooth animation loop */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  letter-spacing: 1px;
+}
+
+  /* Animation */
+@keyframes moveGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+.logo {
+  display: flex;
+  justify-content: center;
+  letter-spacing: 1px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    padding: 15px;
+    background-color: white;
+    display: inline-block; /* Makes the border wrap around the text */ 
+}
+
+#btn-container {
+    padding: 10px;
+    gap: 10px;
+    display: flexbox;
+    justify-items: end;
+}
+
+button {
+    padding: 5px 10px 5px 10px;
+    background: #272727;
+    border-radius: 10px;
+    font-weight: lighter;
+    color: #E0E1E4;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+  background-color: royalblue;
+}
+
+button:active{
+    background-color: #E0E1E4;
+    color: #272727;
+}
+
+.generic {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 30px;
+    margin: 10%;
+    text-align: center;
+    letter-spacing: 0;
+}
+
+.generic img {
+    height: 150px;
+    width: 250px;
+    border-radius: 15px;
+    margin: 20px;
+}
+
+.item img:hover {
+    cursor: pointer;
+}
+
+.item:hover {
+  background-color: #E0E1E4;
+  border-radius: 10px;
+}
+.item:active {
+  background-color: #272727;
+  border-radius: 10px;
+  color: #E0E1E4;
+}
+
+.banner {
+    position: fixed;
+    margin: 30%;
+    top: 0;
+    left: -100%;
+    background-color: #272727;
+    border-radius: 15px;
+    color: #E0E1E4;
+    text-align: center;
+    font-size: 40px;
+    padding: 20px;
+    animation: slideIn 9s forwards;
+    white-space: nowrap; /* Prevents breaking into multiple lines */
+    overflow: hidden; /* Hides any overflowing text */
+    z-index: 300; /* Place the banner above the image container */
+  }
+  
+  @keyframes slideIn { 
+
+  to {
+    left: 100%;
+  }
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: crimson;
+    border-radius: 15px;
+  }
+
+li {
+  float: left;
+}
+
+li a, .dropbtn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+  background-color: navy;
+}
+
+li.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: black;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+}
+.hamburger-contents{
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-top: 2px;
+}
+.dropbtn {
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: small;
+}
+
+.footer-container{
+  display: flex;
+  justify-content: space-evenly;
+  background-color: rgb(20, 18, 18);
+  color: #E0E1E4;
+  padding: 2.5%;
+  text-align: center;
+}
+
+.container{
+  text-align: center;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 60px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.fa:hover {
+    opacity: 0.7;
+    background-color: #272727;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: #E0E1E4;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: #E0E1E4;
+}
+
+.fa-instagram {
+  background:  #f09433; 
+  background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+  background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+  color: #E0E1E4;
+}
+.aob {
+  position: relative; /* Required for positioning the pseudo-element */
+  text-decoration: none;
+  color: #E0E1E4;
+}
+
+.aob::after {
+  content: ''; /* Creates the underline */
+  position: absolute;
+  bottom: 0; /* Positions underline at the bottom of the text */
+  left: 50%; /* Start from the center */
+  width: 0; /* Initially no width */
+  height: 2px; /* Thickness of the underline */
+  background-color: #004D98; /* Color of the underline */
+  transition: all 0.4s ease; /* Smooth animation */
+  transform: translateX(-50%); /* Center the underline visually */
+}
+
+.aob:hover {
+  color: #004D98; /* Changes text color on hover */
+}
+
+.aob:hover::after {
+  width: 90%; /* Expands underline to full width */
+  left:5%; /* Reset to start from the left edge */
+  transform: translateX(0); /* Align with the start */
+}
+
+#sub {
+  background-color: #004D98;
+  padding: 12px;
+  padding-right: 10%;
+  padding-left: 10%;
+}
+
+#sub:hover{
+    background-color: #E0E1E4;
+    color: #272727;
+}
+
+#sub:active{
+  background-color: coral ;
+}
+
+h3{
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+form {
+  background: #ffffff; /* #E0E1E4 form background */
+  padding: 5px;
+  border-radius: 10px; /* Rounded corners */
+}
+
+input[type="email"] {
+  width: 400px; /* Full width */
+  padding-top: 12px; /* Inner spacing */
+  padding-bottom: 12px;
+  border: none;
+  font-size: 16px; /* Larger font */
+  outline: none; /* Remove default focus outline */
+}
+
+input[type="submit"] {
+  background-color: #004D98; /* Blue button */
+  color: #ffffff; /* #E0E1E4 text */
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+input[type="submit"]:hover {
+  background-color: #003366; /* Darker blue on hover */
+}
+
+input[placeholder="Enter your e-mail"] {
+    text-align: center;
+}
+
+.slider_container {
+  background-color:transparent;
+  border-radius: 5px;
+  min-width: 500px;
+  box-shadow: (0 15px 30px rgba(0,0,0,0.3));
+  padding: 30px;
+  left: 50%;
+  top: 50%;
+  margin-left: 5%;
+  margin-right: 5%;
+  display: flex; /* Use Flexbox to position elements */
+  align-items: center; /* Vertically align items */
+  justify-content: center; /* Horizontally align items if needed */
+  gap: 20px; /* Add space between slider and .circle */
+}
+
+.image_container{
+  position: relative;
+  width: 100%;
+}
+
+.active {
+  display: block !important;
+}
+
+.image_container img{
+  position: relative;
+  width: 100%;
+  display: none;
+  border-radius: 35px;
+  position: relative; /* Ensure image doesn't interfere with overlay */
+  z-index: 1; /* Ensure it stays below other UI elements */
+}
+
+
+/* Hidden overlay initially */
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 94%;
+  width: 0; /* Start hidden */
+  background-color: black;
+  opacity: 0.7;
+  border-radius: 100px 35px 15px 100px; /* Circular left and bottom */
+  transition: width 0.3s ease; /* Smooth slide-in effect */
+  z-index: 2; /* Ensures overlay is above the image */
+  transform-origin: right center;
+}
+
+/* Text inside the overlay */
+.text {
+  position: absolute;
+  width: 60%;
+  top: 30%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%);
+  color: white;
+  font-family: sans-serif;
+  font-size: 20px;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.4s ease; /* Smooth fade-in */
+  z-index: 3; /* Ensures text is above overlay */
+}
+
+.overlay.active {
+  width: 75%; /* Expand width when active */
+}
+
+.overlay.active .text {
+  opacity: 1; /* Fade in text when overlay is active */
+}
+
+.dot_container {
+  width: 150px;
+  margin: 20px auto 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.dot_container button{
+    height: 10px;
+    width: 5%;
+    border-radius: 15px;
+    border: 2px solid  #272727;
+    background-color: transparent;
+}
+
+.dot_container button:nth-child(1) {
+  background-color:  black;
+}
+
+.new{
+  outline: none;
+  cursor: pointer;
+}
+
+.circle{
+  display: grid;
+  place-items: center; /* Centers both horizontally and vertically */
+  border-radius: 15px;
+  height: 92%;
+  padding: 5%;
+  background-color: white;
+  opacity: 0.8;
+  color: black;
+  margin: 0 auto; /* Ensures centering within parent */
+}
+
+.circle:hover{
+  background-color: black;
+  color: white;
+  opacity: .9;
+}
+
+/* Arrow button styling (back arrow) */
+#prev {
+  position: absolute;
+  margin-top: 15%;
+  top: 50%;
+  left: 2%; /* Position the button outside the container */
+  transform: translateY(-50%);
+  background-color: transparent;
+  color: black;
+  font-size: 50px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+#prev:hover {
+  background-color: white;
+  color: black;
+  border-radius: 15px;
+  opacity: .9;
+}
+
+#prev:active{
+  background-color: orangered;
+}
