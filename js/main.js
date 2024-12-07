@@ -13,6 +13,7 @@ function next() {
 
     // Update dots
     indicator(currentIndex + 1);
+    varyText();
 }
 
 function prev() {
@@ -27,6 +28,7 @@ function prev() {
 
     // Update dots
     indicator(currentIndex + 1);
+    varyText();
 }
 
 function dot(num) {
@@ -41,6 +43,7 @@ function dot(num) {
 
     // Update dots
     indicator(num);
+    varyText();
 }
 
 function indicator(num) {
@@ -50,13 +53,14 @@ function indicator(num) {
     });
 
     // Highlight the active dot
-    document.querySelector(`.dot_container button:nth-child(${num})`).style.backgroundColor = "black";
+    document.querySelector(`.dot_container button:nth-child(${num})`).style.backgroundColor = "lime";
 }
 
 // Automatic sliding every 5 seconds
 setInterval(next, 5000);
 
-document.querySelectorAll('.image_container').forEach(container => {
+document.querySelectorAll('.image_container').forEach(
+    container => {
     const overlay = container.querySelector('.overlay');
     const text = container.querySelector('.text');
 
@@ -71,3 +75,26 @@ document.querySelectorAll('.image_container').forEach(container => {
     });
 });
 
+// PROBLEMS AT HAND
+// 1. Hide the text of the first image div
+// 2. Display the text of the second and third and fourth image div...when the corresponding image is shown
+
+// function varyText() {
+//     if () {};
+
+//         //the NUM of corresponding image in image slider === the article-NUM class of the text, then only text to be displayed is that corresponding articleNUM
+//         //Now How do I get the NUM of the images?
+// };
+
+function varyText() {
+    // Hide all text elements
+    document.querySelectorAll(".text").forEach(textDiv => {
+        textDiv.style.display = "none";
+    });
+
+    // Show the text corresponding to the active image
+    const textToShow = document.querySelector(`.text.article-${currentIndex + 1}`);
+    if (textToShow) {
+        textToShow.style.display = "block";
+    }
+}

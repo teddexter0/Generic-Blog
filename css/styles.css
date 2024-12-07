@@ -378,6 +378,7 @@ input[placeholder="Enter your e-mail"] {
 /* Text inside the overlay */
 .text {
   position: absolute;
+  display: none;
   width: 60%;
   top: 30%; /* Center vertically */
   left: 50%; /* Center horizontally */
@@ -388,6 +389,10 @@ input[placeholder="Enter your e-mail"] {
   opacity: 0; /* Initially hidden */
   transition: opacity 0.4s ease; /* Smooth fade-in */
   z-index: 3; /* Ensures text is above overlay */
+}
+
+.text.active{
+  display: block !important;
 }
 
 .overlay.active {
@@ -415,7 +420,7 @@ input[placeholder="Enter your e-mail"] {
 }
 
 .dot_container button:nth-child(1) {
-  background-color:  black;
+  background-color:  lime;
 }
 
 .new{
