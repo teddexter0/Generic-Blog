@@ -50,7 +50,7 @@ function indicator(num) {
     });
 
     // Highlight the active dot
-    document.querySelector(`.dot_container button:nth-child(${num})`).style.backgroundColor = "black";
+    document.querySelector(`.dot_container button:nth-child(${num})`).style.backgroundColor = "lime";
 }
 
 // Automatic sliding every 5 seconds
@@ -61,7 +61,7 @@ document.querySelectorAll('.image_container').forEach(container => {
     const text = container.querySelector('.text');
 
     container.addEventListener('mouseenter', () => {
-        overlay.style.width = '75%'; // Slide overlay to 75%
+        overlay.style.width = '85%'; // Slide overlay to 75%
         text.style.opacity = '1';   // Fade in text
     });
 

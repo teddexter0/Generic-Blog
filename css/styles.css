@@ -17,13 +17,13 @@ body {
   letter-spacing: 1px;
 }
 
-  /* Animation */
+  /* Gradient Animation */
 @keyframes moveGradient {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
-  
+  /* Blog logo */
 .logo {
   display: flex;
   justify-content: center;
@@ -39,7 +39,7 @@ h1 {
     background-color: white;
     display: inline-block; /* Makes the border wrap around the text */ 
 }
-
+/* LogIn SignUp */
 #btn-container {
     padding: 10px;
     gap: 10px;
@@ -65,7 +65,7 @@ button:active{
     background-color: #E0E1E4;
     color: #272727;
 }
-
+/* Generic Articles with images */
 .generic {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -95,7 +95,7 @@ button:active{
   border-radius: 10px;
   color: #E0E1E4;
 }
-
+/* Coming in hot banner */
 .banner {
     position: fixed;
     margin: 30%;
@@ -119,7 +119,7 @@ button:active{
     left: 100%;
   }
   }
-
+/* hr Nav Bar */
   ul {
     list-style-type: none;
     margin: 0;
@@ -174,11 +174,12 @@ li.dropdown {
 .dropdown:hover .dropdown-content {
   display: block;
 }
-
+/* Overall div to position the logIn signUp and the hr Nav Bar */
 .nav {
   display: flex;
   justify-content: space-between;
 }
+/* It was suppose to be a hamburger menu */
 .hamburger-contents{
   display: inline-block;
   overflow: hidden;
@@ -191,7 +192,7 @@ li.dropdown {
   font-style: normal;
   font-size: small;
 }
-
+/* Footer */
 .footer-container{
   display: flex;
   justify-content: space-evenly;
@@ -207,7 +208,7 @@ li.dropdown {
   margin: 1rem;
 }
 
-
+/* Social media in footer */
 .fa {
   padding: 20px;
   font-size: 30px;
@@ -242,6 +243,7 @@ li.dropdown {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
   color: #E0E1E4;
 }
+/* OTHERS in footer */
 .aob {
   position: relative; /* Required for positioning the pseudo-element */
   text-decoration: none;
@@ -269,7 +271,7 @@ li.dropdown {
   left:5%; /* Reset to start from the left edge */
   transform: translateX(0); /* Align with the start */
 }
-
+/* SUBSCRIBE in footer */
 #sub {
   background-color: #004D98;
   padding: 12px;
@@ -325,9 +327,81 @@ input[placeholder="Enter your e-mail"] {
     text-align: center;
 }
 
+/* White circle div for arrow leftt */
+.circle{
+  display: grid;
+  place-items: center; /* Centers both horizontally and vertically */
+  border-radius: 15px;
+  height: 92%;
+  padding: 5%;
+  background-color: white;
+  opacity: 0.8;
+  color: black;
+  margin: 0 auto; /* Ensures centering within parent */
+}
+
+.circle:hover{
+  background-color: black;
+  color: white;
+  opacity: .9;
+}
+
+/* Arrow left button styling */
+#prev {
+  position: absolute;
+  margin-top: 15%;
+  top: 50%;
+  left: 2%; /* Position the button outside the container */
+  transform: translateY(-50%);
+  background-color: transparent;
+  color: black;
+  font-size: 50px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+#prev:hover {
+  background-color: white;
+  color: black;
+  border-radius: 15px;
+  opacity: .9;
+}
+
+#prev:active{
+  background-color: orangered;
+}
+
+/* THE IMAGE SLIDER!!! */
+
+/* The 4 radio buttons */
+.dot_container {
+  width: 150px;
+  margin: 20px auto 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.dot_container button{
+    height: 10px;
+    width: 5%;
+    border-radius: 15px;
+    border: 2px solid  #272727;
+    background-color: transparent;
+}
+
+.dot_container button:nth-child(1) {
+  background-color:  lime;
+}
+
+.new{
+  outline: none;
+  cursor: pointer;
+}
+
 .slider_container {
   background-color:transparent;
-  border-radius: 5px;
   min-width: 500px;
   box-shadow: (0 15px 30px rgba(0,0,0,0.3));
   padding: 30px;
@@ -359,7 +433,6 @@ input[placeholder="Enter your e-mail"] {
   z-index: 1; /* Ensure it stays below other UI elements */
 }
 
-
 /* Hidden overlay initially */
 .overlay {
   position: absolute;
@@ -372,7 +445,7 @@ input[placeholder="Enter your e-mail"] {
   border-radius: 100px 35px 15px 100px; /* Circular left and bottom */
   transition: width 0.3s ease; /* Smooth slide-in effect */
   z-index: 2; /* Ensures overlay is above the image */
-  transform-origin: right center;
+  transform-origin: right;
 }
 
 /* Text inside the overlay */
@@ -398,75 +471,8 @@ input[placeholder="Enter your e-mail"] {
   opacity: 1; /* Fade in text when overlay is active */
 }
 
-.dot_container {
-  width: 150px;
-  margin: 20px auto 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.dot_container button{
-    height: 10px;
-    width: 5%;
-    border-radius: 15px;
-    border: 2px solid  #272727;
-    background-color: transparent;
-}
-
-.dot_container button:nth-child(1) {
-  background-color:  black;
-}
-
-.new{
-  outline: none;
-  cursor: pointer;
-}
-
-.circle{
-  display: grid;
-  place-items: center; /* Centers both horizontally and vertically */
-  border-radius: 15px;
-  height: 92%;
-  padding: 5%;
-  background-color: white;
-  opacity: 0.8;
-  color: black;
-  margin: 0 auto; /* Ensures centering within parent */
-}
-
-.circle:hover{
-  background-color: black;
-  color: white;
-  opacity: .9;
-}
-
-/* Arrow button styling (back arrow) */
-#prev {
-  position: absolute;
-  margin-top: 15%;
-  top: 50%;
-  left: 2%; /* Position the button outside the container */
-  transform: translateY(-50%);
-  background-color: transparent;
-  color: black;
-  font-size: 50px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-}
-
-#prev:hover {
-  background-color: white;
-  color: black;
-  border-radius: 15px;
-  opacity: .9;
-}
-
-#prev:active{
-  background-color: orangered;
-}
-
+/* Hovered article text display */
 .overlay.overlay_right .text p {
   text-align: left;
+  font-size: 17px;
 }
