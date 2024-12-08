@@ -12,7 +12,7 @@ body {
   width: 100%;
   background: linear-gradient(45deg, #A50044, #004D98, #ed6b00); /* Barca colors */
   background-size: 300% 300%; /* Oversized for animation effect */
-  animation: moveGradient 12s ease infinite; /* Smooth animation loop */
+  animation: moveGradient 15s ease infinite; /* Smooth animation loop */
   overflow-x: hidden; /* Prevent horizontal scrolling */
   letter-spacing: 1px;
 }
@@ -71,6 +71,7 @@ button:active{
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 30px;
     margin: 10%;
+    margin-top: 0;
     text-align: center;
     letter-spacing: 0;
 }
@@ -356,8 +357,8 @@ input[placeholder="Enter your e-mail"] {
 .overlay {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
+  right: 0;
+  width: 85%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 100px 75px 75px 100px; 
@@ -367,13 +368,15 @@ input[placeholder="Enter your e-mail"] {
 .text {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 65%;
   transform: translate(-50%, -50%); /* Center inside the overlay */
   width: 90%; /* Ensure the text container doesn’t exceed image boundaries */
   color: white;
   opacity: 0;
   transition: opacity 0.3s ease;
+  font-size: larger;
   text-align: left; /* Default text alignment for paragraphs */
+  width: 60%;
 }
 
 .text h2, .text h4 {
@@ -387,6 +390,44 @@ input[placeholder="Enter your e-mail"] {
 @media (max-width: 768px) {
   .text {
     font-size: 14px; /* Adjust text size for smaller screens */
-    width: 80%; /* Reduce width */
+    width: 65%; /* Reduce width */
   }
+}
+
+.dot_container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.dot {
+  appearance: none;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.dot:checked {
+  background-color: lime;
+}
+
+.dot:not(:checked) {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.dot:focus {
+  outline: none;
+}
+
+.dot + .dot {
+  margin-left: 5px;
 }

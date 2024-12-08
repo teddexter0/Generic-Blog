@@ -56,8 +56,8 @@ let currentIndex = 0; // Active image index
             });
         }
         
-        // Automatic sliding every 5 seconds
-        setInterval(next, 4500);
+        // Automatic sliding every 7 seconds
+        setInterval(next, 7000);
         
         // Initial call to show the first slide
         updateSlider();
