@@ -23,30 +23,6 @@ body {
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
-
-  @media (max-width: 1200px) {
-    @keyframes moveGradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-  }
-  
-  @media (max-width: 768px) {
-    @keyframes moveGradient {
-      0% { background-position: 0% 30%; }
-      50% { background-position: 100% 30%; }
-      100% { background-position: 0% 30%; }
-    }
-  }
-  
-  @media (max-width: 480px) {
-    @keyframes moveGradient {
-      0% { background-position: 0% 20%; }
-      50% { background-position: 100% 20%; }
-      100% { background-position: 0% 20%; }
-    }
-  }
   
   /* Blog logo */
 .logo {
