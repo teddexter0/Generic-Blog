@@ -178,6 +178,8 @@ li.dropdown {
 .nav {
   display: flex;
   justify-content: space-between;
+  z-index: 100; 
+  /* so the contents don't go behind image slider */
 }
 /* It was suppose to be a hamburger menu */
 .hamburger-contents{
@@ -327,152 +329,105 @@ input[placeholder="Enter your e-mail"] {
     text-align: center;
 }
 
-/* White circle div for arrow leftt */
-.circle{
-  display: grid;
-  place-items: center; /* Centers both horizontally and vertically */
-  border-radius: 15px;
-  height: 92%;
-  padding: 5%;
-  background-color: white;
-  opacity: 0.8;
-  color: black;
-  margin: 0 auto; /* Ensures centering within parent */
-}
-
-.circle:hover{
-  background-color: black;
-  color: white;
-  opacity: .9;
-}
-
-/* Arrow left button styling */
-#prev {
-  position: absolute;
-  margin-top: 15%;
-  top: 50%;
-  left: 2%; /* Position the button outside the container */
-  transform: translateY(-50%);
-  background-color: transparent;
-  color: black;
-  font-size: 50px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-}
-
-#prev:hover {
-  background-color: white;
-  color: black;
-  border-radius: 15px;
-  opacity: .9;
-}
-
-#prev:active{
-  background-color: orangered;
-}
-
-/* THE IMAGE SLIDER!!! */
-
-/* The 4 radio buttons */
-.dot_container {
-  width: 150px;
-  margin: 20px auto 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.dot_container button{
-    height: 10px;
-    width: 5%;
-    border-radius: 15px;
-    border: 2px solid  #272727;
-    background-color: transparent;
-}
-
-.dot_container button:nth-child(1) {
-  background-color:  lime;
-}
-
-.new{
-  outline: none;
-  cursor: pointer;
-}
-
-.slider_container {
-  background-color:transparent;
-  min-width: 500px;
-  box-shadow: (0 15px 30px rgba(0,0,0,0.3));
-  padding: 30px;
-  left: 50%;
-  top: 50%;
-  margin-left: 5%;
-  margin-right: 5%;
-  display: flex; /* Use Flexbox to position elements */
-  align-items: center; /* Vertically align items */
-  justify-content: center; /* Horizontally align items if needed */
-  gap: 20px; /* Add space between slider and .circle */
-}
-
-.image_container{
+.slider {
   position: relative;
   width: 100%;
+  min-width: 75%;
+  margin: auto;
+  overflow: hidden;
+  padding: 85px
 }
 
-.active {
-  display: block !important;
-}
-
-.image_container img{
+.image_container {
   position: relative;
   width: 100%;
-  display: none;
-  border-radius: 35px;
-  position: relative; /* Ensure image doesn't interfere with overlay */
-  z-index: 1; /* Ensure it stays below other UI elements */
+  display: block;
+  transition: all 0.5s ease-in-out;
+  display: none; /* Hide all images by default */
 }
 
-/* Hidden overlay initially */
+.image_container.active {
+  display: block; /* Only show the active image */
+}
+
+.image_container img {
+  width: 100%;
+  display: block;
+  border-radius: 75px;
+}
+
 .overlay {
   position: absolute;
   top: 0;
   right: 0;
-  height: 94%;
-  width: 0; /* Start hidden */
-  background-color: black;
-  opacity: 0.75;
-  border-radius: 100px 35px 15px 100px; /* Circular left and bottom */
-  transition: width 0.3s ease; /* Smooth slide-in effect */
-  z-index: 2; /* Ensures overlay is above the image */
-  transform-origin: right;
+  width: 0;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 100px 75px 75px 100px; 
+  transition: width 0.45s ease-in-out;
 }
 
-/* Text inside the overlay */
 .text {
   position: absolute;
-  width: 60%;
-  top: 30%; /* Center vertically */
-  left: 50%; /* Center horizontally */
+  top: 30%;
+  left: 70%;
   transform: translate(-50%, -50%);
   color: white;
-  font-family: sans-serif;
-  font-size: 20px;
-  opacity: 0; /* Initially hidden */
-  transition: opacity 0.4s ease; /* Smooth fade-in */
-  z-index: 3; /* Ensures text is above overlay */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: large;
 }
 
-.overlay.active {
-  width: 75%; /* Expand width when active */
+.text h2, .text h4, .text p {
+  margin: 5px 0;
 }
 
-.overlay.active .text {
-  opacity: 1; /* Fade in text when overlay is active */
+h2, h4 {
+  text-align: "right";
 }
 
-/* Hovered article text display */
-.overlay.overlay_right .text p {
-  text-align: left;
-  font-size: 17px;
+.dot_container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.dot {
+  appearance: none;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.dot:checked {
+  background-color: lime;
+}
+
+.dot:not(:checked) {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.dot:focus {
+  outline: none;
+}
+
+.dot + .dot {
+  margin-left: 5px;
+}
+
+.text h2, .text h4 {
+  text-align: right; /* Align h2 and h4 to the right */
+}
+
+.text p {
+  text-align: left; /* Align p to the left */
 }

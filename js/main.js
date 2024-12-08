@@ -1,73 +1,80 @@
-let currentIndex = 0; // Current active image index
-let totalSlides = 4; // Total number of images
-
-function next() {
-    // Remove "active" class from the current image
-    document.querySelector(".image_container .active").classList.remove("active");
-
-    // Update index
-    currentIndex = (currentIndex + 1) % totalSlides;
-
-    // Add "active" class to the new image
-    document.getElementById("content" + (currentIndex + 1)).classList.add("active");
-
-    // Update dots
-    indicator(currentIndex + 1);
-}
-
-function prev() {
-    // Remove "active" class from the current image
-    document.querySelector(".image_container .active").classList.remove("active");
-
-    // Update index
-    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-
-    // Add "active" class to the new image
-    document.getElementById("content" + (currentIndex + 1)).classList.add("active");
-
-    // Update dots
-    indicator(currentIndex + 1);
-}
-
-function dot(num) {
-    // Remove "active" class from the current image
-    document.querySelector(".image_container .active").classList.remove("active");
-
-    // Update index based on dot clicked
-    currentIndex = num - 1;
-
-    // Add "active" class to the selected image
-    document.getElementById("content" + num).classList.add("active");
-
-    // Update dots
-    indicator(num);
-}
-
-function indicator(num) {
-    // Reset all dots
-    document.querySelectorAll(".dot_container button").forEach(function (dot) {
-        dot.style.backgroundColor = "transparent";
-    });
-
-    // Highlight the active dot
-    document.querySelector(`.dot_container button:nth-child(${num})`).style.backgroundColor = "lime";
-}
-
-// Automatic sliding every 5 seconds
-setInterval(next, 5000);
-
-document.querySelectorAll('.image_container').forEach(container => {
-    const overlay = container.querySelector('.overlay');
-    const text = container.querySelector('.text');
-
-    container.addEventListener('mouseenter', () => {
-        overlay.style.width = '85%'; // Slide overlay to 75%
-        text.style.opacity = '1';   // Fade in text
-    });
-
-    container.addEventListener('mouseleave', () => {
-        overlay.style.width = '0'; // Hide overlay
-        text.style.opacity = '0';  // Fade out text
-    });
-});
-
+let currentIndex = 0; // Active image index
+        let totalSlides = 4;  // Total number of slides
+        
+        // Show or hide text based on the active image index
+        function showText() {
+            // Hide all text containers
+            document.querySelectorAll('.text').forEach(text => text.style.opacity = '0');
+        
+            // Show the corresponding text for the active slide
+            const activeText = document.querySelector(`#content${currentIndex + 1} .text`);
+            if (activeText) activeText.style.opacity = '1';
+        }
+        
+        // Handle next slide
+        function next() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateSlider();
+        }
+        
+        // Handle previous slide
+        function prev() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+        
+        // Update the slider based on currentIndex
+        function updateSlider() {
+            // Hide all image containers
+            document.querySelectorAll('.image_container').forEach(container => {
+                container.classList.remove('active');
+            });
+        
+            // Show the active image container
+            const activeContainer = document.getElementById(`content${currentIndex + 1}`);
+            if (activeContainer) activeContainer.classList.add('active');
+        
+            // Update radio buttons
+            updateDots();
+            showText(); // Show the text for the active slide
+        }
+        
+        // Handle dot click
+        function dot(num) {
+            currentIndex = num - 1;
+            updateSlider();
+        }
+        
+        // Update active dot style
+        function updateDots() {
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.checked = true;
+                } else {
+                    dot.checked = false;
+                }
+            });
+        }
+        
+        // Automatic sliding every 5 seconds
+        setInterval(next, 4500);
+        
+        // Initial call to show the first slide
+        updateSlider();
+        
+        // Event listener for hover effect (overlay and text)
+        document.querySelectorAll('.image_container').forEach(container => {
+            const overlay = container.querySelector('.overlay');
+            const text = container.querySelector('.text');
+        
+            container.addEventListener('mouseenter', () => {
+                overlay.style.width = '85%'; // Slide overlay to full width
+                text.style.opacity = '1';    // Show the text
+            });
+        
+            container.addEventListener('mouseleave', () => {
+                overlay.style.width = '0'; // Hide overlay
+                text.style.opacity = '0';  // Hide the text
+            });
+        });        
+    
