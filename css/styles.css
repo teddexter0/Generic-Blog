@@ -23,6 +23,31 @@ body {
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
+
+  @media (max-width: 1200px) {
+    @keyframes moveGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    @keyframes moveGradient {
+      0% { background-position: 0% 30%; }
+      50% { background-position: 100% 30%; }
+      100% { background-position: 0% 30%; }
+    }
+  }
+  
+  @media (max-width: 480px) {
+    @keyframes moveGradient {
+      0% { background-position: 0% 20%; }
+      50% { background-position: 100% 20%; }
+      100% { background-position: 0% 20%; }
+    }
+  }
+  
   /* Blog logo */
 .logo {
   display: flex;
@@ -41,6 +66,8 @@ h1 {
 }
 /* LogIn SignUp */
 #btn-container {
+    top: 0;
+    right: 10;
     padding: 10px;
     gap: 10px;
     display: flexbox;
@@ -179,8 +206,6 @@ li.dropdown {
 .nav {
   display: flex;
   justify-content: space-between;
-  z-index: 100; 
-  /* so the contents don't go behind image slider */
 }
 /* It was suppose to be a hamburger menu */
 .hamburger-contents{
@@ -329,6 +354,8 @@ input[type="submit"]:hover {
 input[placeholder="Enter your e-mail"] {
     text-align: center;
 }
+
+/* IMAGE SLIDER */
 .slider {
   position: relative;
   width: 100%;

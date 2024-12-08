@@ -1,3 +1,4 @@
+// Code mainly for automatic image and dot sliders
 let currentIndex = 0; // Active image index
         let totalSlides = 4;  // Total number of slides
         
