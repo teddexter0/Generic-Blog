@@ -42,12 +42,10 @@ h1 {
 }
 /* LogIn SignUp */
 #btn-container {
-    top: 0;
-    right: 10;
+    position: relative;
     padding: 10px;
+    display: flex;
     gap: 10px;
-    display: flexbox;
-    justify-items: end;
 }
 
 button {
@@ -181,7 +179,7 @@ li.dropdown {
 /* Overall div to position the logIn signUp and the hr Nav Bar */
 .nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 /* It was suppose to be a hamburger menu */
 .hamburger-contents{
