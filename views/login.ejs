@@ -1,16 +1,16 @@
-<% include('partials/header') %>
+<head>
+    <link rel="stylesheet" href="/css/styles.css">
+    <%- include('partials/header') %>
+</head>
 
-<form action="/Sign Up" method="post">
+<form action="/login" method="post" class="login">
     <div id="form-container">
      <b>E-mail</b>
         <input type="email" required placeholder="Enter your e-mail">
-
+        <br>
      <b>Password</b>
         <input type="password" required placeholder="Enter your password">
         <button>Log In</button>
     </div>
 
 </form>
-
-
-<% include('partials/footer') %>

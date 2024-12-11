@@ -4,22 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TeDex Blog</title>
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=Poetsen+One&display=swap" rel="stylesheet">
+
+<%- include('partials/header.ejs') %>
 </head>
 <body>
 
-<%= include('partials/header.ejs') %>
-
-
 <!--Auto image slider-->
 <div class="slider">
-<a href="">
+<a href="#">
     <div class="image_container" id="content1">
-        <img src="images/food-4k-1pf6px6ryqfjtnyr.jpg" alt="Food">
+        <img src="/images/food-4k-1pf6px6ryqfjtnyr.jpg" alt="Food">
         <div class="overlay"></div>
         <div class="text text-1">
             <h2>Why Scientists believe this regular meal kills cancers</h2>
@@ -35,9 +34,9 @@
     </div>
 </a>
 
-<a href="">
+<a href="#">
     <div class="image_container" id="content2">
-        <img src="images/eifell tower.webp" alt="Eifell Tower">
+        <img src="/images/eifell tower.webp" alt="Eifell Tower">
         <div class="overlay"></div>
         <div class="text text-2">
             <h2>Top 10 Places to visit in 2025</h2>
@@ -55,9 +54,9 @@
 
 </a>
 
-<a href="">
+<a href="#">
     <div class="image_container" id="content3">
-        <img src="images/aerial-view-camp-nou-stadium-barcelona-v1ybgvx18wqahxjs.jpg" alt="Camp Nou">
+        <img src="/images/aerial-view-camp-nou-stadium-barcelona-v1ybgvx18wqahxjs.jpg" alt="Camp Nou">
         <div class="overlay"></div>
         <div class="text text-3">
             <h2>Top 10 Largest European Stadiums</h2>
@@ -77,9 +76,9 @@
 
 </a>
 
-<a href="">
+<a href="#">
     <div class="image_container" id="content4">
-        <img src="images/1920x1080-Avengers-End-Game-Laptop-Full-HD-1080P-HD-4k-.jpg" alt="Avengers End-Game">
+        <img src="/images/1920x1080-Avengers-End-Game-Laptop-Full-HD-1080P-HD-4k-.jpg" alt="Avengers End-Game">
         <div class="overlay"></div>
         <div class="text text-4">
             <h2>What's really happened to Marvel since 'The Blip'?</h2>
@@ -111,7 +110,7 @@
     <!-- Generic articles -->
     <div class="generic">
         <div class="item 1">
-            <a href="../Server/big6.j../routes/partials/generic.ejs">          
+            <a href="/generic">          
          <img src="https://e0.365dm.com/24/12/1600x900/skysports-mikel-arteta-ruben_6764691.jpg" alt="Manchester United VS Arsenal" >
             </a>  
             
@@ -119,19 +118,19 @@
             <p>Amorim says Utd need to play without fear, Arteta says "Bring it On"</p>     
         </div> 
         <div class="item 2">
-            <a href="../Server/big6.j../routes/partials/generic.ejs">                   
+            <a href="/generic">                   
 
             <img src="https://66.media.tumblr.com/0e55298b14c9d7613421891f4dada07e/tumblr_prcfzrhNun1yoojy7o4_540.gif" alt="Iron-Man" >   </a>    
-            <h5>By Ted Sande | 2 min read <br>Wednesday | 26th Jan, 2024</h5>
+            <h5>By Tasha Romanoff | 2 min read <br>Wednesday | 26th Jan, 2024</h5>
             <p>"Iron-Man is back"</p>     
 
         </div> 
         <div class="item 3">
-            <a href="../Server/big6.j../routes/partials/generic.ejs">             
+            <a href="/generic">             
         
 
             <img src="https://cdn.images.express.co.uk/img/dynamic/151/750x445/917891.jpg" alt="Space X rocket launc">   </a>  
-            <h5>By Ted Sande | 2 min read <br>Monday | 24th Jan, 2024</h5>
+            <h5>By Alex Keble | 2 min read <br>Monday | 24th Jan, 2024</h5>
             <p>"We are ready to colonize Mars" says Elon Musk</p>     
         </div>             
     </div>
@@ -139,10 +138,8 @@
     <!-- Banner -->
     <div class="banner">Coming in hot this week!</div>
     
-<%= include('partials/footer.ejs') %>
+<%- include('partials/footer.ejs') %>
 
-    <script src="./js/main.js">
-
-    </script>
+    <script src="/js/main.js"></script>
 </body>
 </html>
