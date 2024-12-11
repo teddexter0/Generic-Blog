@@ -3,14 +3,21 @@
     <%- include('partials/header') %>
 </head>
 
-<form action="/login" method="post" class="login">
-    <div id="form-container">
-     <b>E-mail</b>
-        <input type="email" required placeholder="Enter your e-mail">
+<form action="/login" method="post" class="login" autocomplete="off">
+
+    <div id="login-container">
+     <b>E-mail</b>:
+        <input type="email" required name="email" placeholder="Enter your e-mail">
         <br>
-     <b>Password</b>
-        <input type="password" required placeholder="Enter your password">
-        <button>Log In</button>
+        <br>
+     <b>Password</b>:
+        <input type="password" required name="password" placeholder="Enter your password">
     </div>
+        <br>
+    <div class="rem-btn">
+        
+    <button type="submit">Log In!</button>
+    </div>
+   
 
 </form>

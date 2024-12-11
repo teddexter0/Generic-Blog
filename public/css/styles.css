@@ -328,7 +328,7 @@ form {
   border-radius: 10px; /* Rounded corners */
 }
 
-input[type="email"] {
+input[type="email"], input[type="password"], input[type="text"]{
   width: 400px; /* Full width */
   padding-top: 12px; /* Inner spacing */
   padding-bottom: 12px;
@@ -337,7 +337,7 @@ input[type="email"] {
   outline: none; /* Remove default focus outline */
 }
 
-input[type="submit"] {
+input[type="submit"], button[type="submit"] {
   background-color: #004D98; /* Blue button */
   color: #ffffff; /* #E0E1E4 text */
   padding: 12px 20px;
@@ -348,11 +348,12 @@ input[type="submit"] {
   transition: background-color 0.3s; /* Smooth hover effect */
 }
 
-input[type="submit"]:hover {
-  background-color: #003366; /* Darker blue on hover */
+input[type="submit"]:hover, button[type="submit"]:hover {
+  background-color: black; /* Darker blue on hover */
+  color:  white;
 }
 
-input[placeholder="Enter your e-mail"] {
+input[placeholder="Enter your e-mail"], input[placeholder="Enter your password"], input[placeholder="Enter your name"] {
     text-align: center;
 }
 
@@ -475,4 +476,20 @@ input[placeholder="Enter your e-mail"] {
   font-weight: 400;
   font-style: normal;
   font-size: larger;
+}
+
+#signup-container, #login-container{
+  text-align: center;
+}
+
+
+#signup-container input, #login-container input{
+  background-color: #E0E1E4;
+  border-radius: 15px;
+}
+
+.rem-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

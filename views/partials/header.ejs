@@ -83,6 +83,10 @@
                       <a href="/login"><button id="log-in">Log In</button></a>  
                       <a href="/register"><button id="sign-up">Sign Up</button></a>     
                   </div>  
+                  <% if (username) { %>
+                    <h6>Welcome <%= name %></h6>
+                  <% } %>                  
+                  
 
 </header>
 
