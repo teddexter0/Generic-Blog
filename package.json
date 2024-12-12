@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "axios": "^1.7.9",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.7",
+    "passport": "^0.7.0",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-instagram": "^1.0.0",
+    "passport-twitter": "^0.1.5",
+    "pg": "^8.13.1"
+  },
+  "type": "module"
+}

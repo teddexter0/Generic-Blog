@@ -1,0 +1,31 @@
+.login, .sign-up{
+    margin: auto;
+  }
+  
+  .moreComingSoon {
+    background-color: white;
+    padding: 10%;
+    margin-bottom: 20%;
+    border-radius: 10px;
+    height: 75vh;
+    text-align: center;
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: larger;
+  }
+  
+  #signup-container, #login-container{
+    text-align: center;
+  }
+  
+  #signup-container input, #login-container input{
+    background-color: #E0E1E4;
+    border-radius: 15px;
+  }
+  
+  .rem-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

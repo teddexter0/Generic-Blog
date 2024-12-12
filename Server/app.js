@@ -1,9 +1,6 @@
 import express from "express";
 import path from "path";
 import bodyParser from "body-parser";
-import morgan from "morgan";
-import nodemon from "nodemon";
-import axios from "axios";
 import { fileURLToPath } from "url";
 
 // Set up ES module directory handling
@@ -44,6 +41,7 @@ app.post('/sign-up', (req, res) => {
     // Handle the form submission for sign-up here
     res.send("Sign-up form submitted!"); // Replace with actual handling logic
 });
+
 app.get('/generic', (req, res) => {
     try {
         res.render('generic');

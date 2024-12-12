@@ -1,0 +1,74 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body { 
+    display: grid;
+    height: 100%;
+    min-height: 100vh;
+    overflow-y: auto; /* Allows vertical scrolling */
+    width: 100%;
+    background: linear-gradient(45deg, #A50044, #004D98, #ed6b00); /* Barca colors */
+    background-size: 300% 300%; /* Oversized for animation effect */
+    animation: moveGradient 15s ease infinite; /* Smooth animation loop */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    letter-spacing: 1px;
+  }
+  
+    /* Gradient Animation */
+  @keyframes moveGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    button {
+        padding: 5px 10px 5px 10px;
+        background: #272727;
+        border-radius: 10px;
+        font-weight: lighter;
+        color: #E0E1E4;
+        border: none;
+        cursor: pointer;
+    }
+    
+    button:hover {
+      background-color: royalblue;
+    }
+    
+    button:active{
+        background-color: #E0E1E4;
+        color: #272727;
+    }
+
+    
+input[type="email"], input[type="password"], input[type="text"]{
+    width: 400px; /* Full width */
+    padding-top: 12px; /* Inner spacing */
+    padding-bottom: 12px;
+    border: none;
+    font-size: 16px; /* Larger font */
+    outline: none; /* Remove default focus outline */
+  }
+  
+  input[type="submit"], button[type="submit"] {
+    background-color: #004D98; /* Blue button */
+    color: #ffffff; 
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth hover effect */
+  }
+  
+  input[type="submit"]:hover, button[type="submit"]:hover {
+    background-color: black; 
+    color:  white;
+  }
+  
+  input[placeholder="Enter your e-mail"], input[placeholder="Enter your password"], input[placeholder="Enter your name"] {
+      text-align: center;
+  }
