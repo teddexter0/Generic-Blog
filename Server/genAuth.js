@@ -1,4 +1,5 @@
 import express from express;
+import session from "express-session";
 import bodyParser from "body-parser";
 import pg from "pg";
 import bcrypt from "bcrypt";
@@ -7,6 +8,8 @@ import axios from "axios";
 import nodemon from "nodemon";
 import morgan from "morgan";
 import dotenv from "dotenv";
+import passport from "passport";
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 dotenv.config();
 
 const app = express()
@@ -17,7 +20,6 @@ const saltRounds = 10;
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
   });
@@ -34,7 +36,7 @@ db.connect();
 app.post('/register', async (req, res) => { // Render register page with GET
     const email = req.body.email;
     const password = req.body.password;
-
+    const username = req.body.username;
 //Nuance handling
 try {
     const checkResult = await db.query("SELECT * FROM user WHERE email = $1", [email]);
@@ -50,10 +52,10 @@ try {
             } else {
                 console.log("Hashed Password:", hash);
                 await db.query(
-                    " INSERT INTO users (email, password) VALUES ($1, $2)"
-                    [email, hash]
+                    " INSERT INTO users (email, password) VALUES ($1, $2, $3)"
+                    [email, hash, username]
                 );
-                res.render("home.ejs"); 
+                res.render("home.ejs");
             }
         });
     }
@@ -65,7 +67,7 @@ try {
 });
 
 app.post("/login", async (req, res) => {
-    const email = req.body.username;
+    const email = req.body.email;
     const loginPassword = req.body.password;
     
 //Nuance handling

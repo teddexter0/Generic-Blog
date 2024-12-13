@@ -58,7 +58,7 @@ input[type="email"], input[type="password"], input[type="text"]{
     color: #ffffff; 
     padding: 12px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s; /* Smooth hover effect */
@@ -71,4 +71,10 @@ input[type="email"], input[type="password"], input[type="text"]{
   
   input[placeholder="Enter your e-mail"], input[placeholder="Enter your password"], input[placeholder="Enter your name"] {
       text-align: center;
+  }
+
+  form{
+    border-radius: 15px;
+    background-color: #ffffff;
+    padding: 5px;
   }
