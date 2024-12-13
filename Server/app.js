@@ -6,11 +6,8 @@ import { Pool } from 'pg';
 import bodyParser from "body-parser";
 import morgan from "morgan";
 import passport from "passport";
-import googleAuth from './googleAuth.js';
-import genAuth from './genAuth.js';
-import fbAuth from './fbAuth.js';
-import igAuth from '.igAuth.js';
-import twitterAuth from './twitterAuth.js';
+import googleAuth from './authRoutes/googleAuth.js';
+import genAuth from './authRoutes/genAuth.js';
 
 const app = express();
 const port = 3000;
