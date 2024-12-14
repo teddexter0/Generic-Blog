@@ -1,18 +1,6 @@
 .login, .sign-up{
+    display: flex;
     margin: auto;
-  }
-  
-  .moreComingSoon {
-    background-color: white;
-    padding: 10%;
-    margin-bottom: 20%;
-    border-radius: 10px;
-    height: 75vh;
-    text-align: center;
-    font-family: "Permanent Marker", cursive;
-    font-weight: 400;
-    font-style: normal;
-    font-size: larger;
   }
   
   #signup-container, #login-container{
@@ -29,3 +17,32 @@
     justify-content: center;
     align-items: center;
   }
+  
+
+.three > .fa{
+  display: none;
+}
+
+.two > h3, form, button{
+  display: none;
+}
+
+.nav > .hamburger-contents{
+  display: none;
+}
+
+#clientPosts{
+  display: none;
+}
+
+#log-in, #sign-up{
+  display: none;
+}
+
+#trends{
+  display: none;
+}
+
+#homePage{
+  margin-left: 90vw !important;
+}

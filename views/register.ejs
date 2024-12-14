@@ -1,13 +1,9 @@
 <head>
-    
-    <link rel="stylesheet" href="/css/global.css">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/auth.css">
     <%- include('partials/header') %>
 </head>
 
-<form action="/register" method="post" class="login" autocomplete="off">
+<form action="/register" method="post" class="sign-up" autocomplete="off">
 
     <div id="signup-container">
         <b>Name</b>:
@@ -25,5 +21,9 @@
     <button type="submit">Sign Up!</button>
 </div>
 </form>
+
+
+
+<%- include('partials/footer.ejs') %>
 
 

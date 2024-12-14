@@ -1,0 +1,39 @@
+/* Just let the newsAPI have ther centralized vertical/horizontal placed */
+
+.newsAPIposts {
+    background-color: white;
+    display: grid;
+    grid-template-rows: auto;
+    height: 100vh; /* Ensure container takes up full viewport height */
+}
+
+.post{
+    background-color: #272727;
+    color: white;
+    margin: auto 5%;
+    padding: 15px;
+    border-radius: 10px;
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: small;
+    letter-spacing: 1px;
+}
+
+
+
+.three > .fa{
+    display: none;
+}
+
+.two > h3, form, button{
+    display: none;
+}
+
+#log-in, #sign-up{
+    display: flex;
+}
+
+#trends{
+    display: none;
+}

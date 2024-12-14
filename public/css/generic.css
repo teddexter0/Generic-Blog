@@ -1,0 +1,24 @@
+#log-in, #sign-up{
+    display: flex;
+}
+
+.three > .fa{
+    display: none;
+}
+
+.two > h3, form, button{
+    display: none;
+}
+
+.moreComingSoon {
+    background-color: white;
+    padding: 10%;
+    margin-bottom: 0;
+    border-radius: 10px;
+    height: 100vh;
+    text-align: center;
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: larger;
+  }
