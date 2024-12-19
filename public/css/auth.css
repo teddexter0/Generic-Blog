@@ -1,5 +1,5 @@
 .login, .sign-up{
-    display: flex;
+    display: grid;
     margin: auto;
   }
   
@@ -45,4 +45,31 @@
 
 #homePage{
   margin-left: 90vw !important;
+}
+
+#here{
+  color: blue;
+  text-decoration: underline;
+}
+
+#here:active{
+  color: red;
+}
+
+#here:hover{
+  color: lime;
+}
+
+form a{
+  margin-right: 10px;
+  text-decoration: none;
+  text-align: center;
+}
+
+button[type="submit"]{
+  display: block;
+}
+
+#sub{
+  display: none;
 }
