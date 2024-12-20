@@ -102,14 +102,16 @@
 
 </div>
 
-
-                  <!-- Login and Sign Up Buttons -->
-                  <div id="btn-container">
-                      <a href="/login"><button id="log-in">Log In</button></a>  
-                      <a href="/register"><button id="sign-up">Sign Up</button></a>     
-                  </div>  
-
-</header>
+    <% if (isAuthenticated) { %>
+      <a href="/logout" id="logout"><button type="submit">Log Out</button></a>
+    <% } else { %>
+      <div id="btn-container">
+        <a href="/login"><button id="log-in">Log In</button></a>
+        <a href="/register"><button id="sign-up">Sign Up</button></a>
+      </div>
+    <% } %>
+  </header>
+  
 
 <!-- Generic text logo of blog -->
 <div class="logo">    
@@ -117,4 +119,10 @@
 <span style="color: red;">T</span><span style="color: gray;">e</span><span style="color: limegreen;">D</span><span style="color: gray">e</span><span style="color: red;">X</span>
  Blog
     </h1>
+    <% if (registeredName) { %>
+        <h2 id="welcome">Hi <%= registeredName %>, welcome to your posts!</h2>
+    <% } else { %>
+        <h2 id="welcome">Welcome to your posts!</h2>
+    <% } %>    
+    
 </div>

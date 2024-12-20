@@ -20,8 +20,6 @@
     letter-spacing: 1px;
 }
 
-
-
 .three > .fa{
     display: none;
 }
@@ -35,5 +33,10 @@
 }
 
 #trends{
+    display: none;
+}
+
+
+#welcome{
     display: none;
 }

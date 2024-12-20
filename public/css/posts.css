@@ -47,3 +47,8 @@ body {
     padding: 25px;
     margin:  25px;
 }
+
+#welcome{
+    display: flex;
+}
+

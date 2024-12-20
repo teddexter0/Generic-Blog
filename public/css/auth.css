@@ -73,3 +73,7 @@ button[type="submit"]{
 #sub{
   display: none;
 }
+
+#welcome{
+  display: none;
+}

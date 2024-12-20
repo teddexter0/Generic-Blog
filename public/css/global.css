@@ -24,6 +24,7 @@
       100% { background-position: 0% 50%; }
     }
 
+    
     button {
         padding: 5px 10px 5px 10px;
         background: #272727;
@@ -108,4 +109,22 @@ input[type="email"], input[type="password"], input[type="text"]{
 #trends-posts button:active{
     background-color: #E0E1E4;
     color: #272727;
+}
+
+#welcome{
+  display: none;
+}
+
+#logout > button{
+  background-color: black;
+  margin-top: 5px;
+}
+
+#logout > button:hover{
+    background-color: white;
+    color: black;
+}
+
+#logout > button:active{
+  background-color: yellow;
 }

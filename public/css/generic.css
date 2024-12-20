@@ -22,3 +22,8 @@
     font-style: normal;
     font-size: larger;
   }
+
+  
+#welcome{
+    display: none;
+}

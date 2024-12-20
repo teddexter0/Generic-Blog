@@ -101,3 +101,7 @@ li.dropdown {
   font-style: normal;
   font-size: small;
 }
+
+#welcome{
+  display: none;
+}

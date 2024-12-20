@@ -3,6 +3,8 @@
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
+    "connect-flash": "^0.1.1",
+    "cookieparser": "^0.1.0",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
@@ -16,7 +18,8 @@
     "passport-instagram": "^1.0.0",
     "passport-local": "^1.0.0",
     "passport-twitter": "^0.1.5",
-    "pg": "^8.13.1"
+    "pg": "^8.13.1",
+    "req-flash": "^0.0.3"
   },
   "type": "module"
 }
