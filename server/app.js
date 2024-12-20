@@ -156,6 +156,51 @@ app.get('/trends', (req, res) => {
     }
 });
 
+app.get('/scientists', (req, res) => {
+    try {
+        res.render('Generic articles/scientists');
+    } catch (err) {
+        console.error("Rendering error:", err);
+        res.status(500).send("Server Side error");
+    }
+}); 
+
+app.get('/stadiums', (req, res) => {
+    try {
+        res.render('Generic articles/stadiums');
+    } catch (err) {
+        console.error("Rendering error:", err);
+        res.status(500).send("Server Side error");
+    }
+}); 
+
+app.get('/places', (req, res) => {
+    try {
+        res.render('Generic articles/places');
+    } catch (err) {
+        console.error("Rendering error:", err);
+        res.status(500).send("Server Side error");
+    }
+}); 
+
+app.get('/marvel', (req, res) => {
+    try {
+        res.render('Generic articles/marvel');
+    } catch (err) {
+        console.error("Rendering error:", err);
+        res.status(500).send("Server Side error");
+    }
+}); 
+
+app.get('/about', (req, res) => {
+    try {
+        res.render('about');
+    } catch (err) {
+        console.error("Rendering error:", err);
+        res.status(500).send("Server Side error");
+    }
+}); 
+
   // Protected route (only accessible to authenticated users)
 app.get('/posts', ensureAuthenticated, async (req, res) => {
     try {
@@ -167,6 +212,8 @@ app.get('/posts', ensureAuthenticated, async (req, res) => {
         res.status(500).send("Server-side error, please try again later");
     }
 });
+
+
 
 // Logout Route
 app.get("/logout", (req, res) => {
@@ -251,4 +298,3 @@ function ensureAuthenticated(req, res, next) {
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
-

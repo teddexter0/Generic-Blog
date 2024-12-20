@@ -111,13 +111,9 @@ input[type="email"], input[type="password"], input[type="text"]{
     color: #272727;
 }
 
-#welcome{
-  display: none;
-}
-
 #logout > button{
   background-color: black;
-  margin-top: 5px;
+  margin: 10px;
 }
 
 #logout > button:hover{

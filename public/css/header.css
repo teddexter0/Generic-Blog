@@ -1,9 +1,7 @@
   /* Blog logo */
   .logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    letter-spacing: 1px;
+    display: grid;
+    place-items: center;
   }
   
   h1 {
@@ -103,5 +101,5 @@ li.dropdown {
 }
 
 #welcome{
-  display: none;
+  color: chartreuse;
 }

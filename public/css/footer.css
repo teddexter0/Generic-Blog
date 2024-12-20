@@ -77,11 +77,6 @@
     color: #E0E1E4;
   }
   
-  .fa-google {  
-    background: #dd4b39;  
-    color: white;  
-  }  
-  
   /* OTHERS in footer */
   .aob {
     position: relative; /* Required for positioning the pseudo-element */
@@ -134,7 +129,3 @@
     letter-spacing: 1px;
   }
   
-  
-#welcome{
-  display: none;
-}

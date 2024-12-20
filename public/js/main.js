@@ -78,4 +78,54 @@ let currentIndex = 0; // Active image index
                 text.style.opacity = '0';  // Hide the text
             });
         });        
-    
+
+    //subscribe button confetti
+document.addEventListener('DOMContentLoaded', function () {
+            // Select the button with id 'sub'
+            const button = document.getElementById('sub');
+            
+            // Check if the button exists
+            if (!button) {
+              console.error("Button with id 'sub' not found.");
+              return; // Stop execution if the button is missing
+            }
+          
+            // Add click event listener to the button
+            button.addEventListener('click', function () {
+              function random(max) {
+                return Math.random() * max; // Generate a random number up to 'max'
+              }
+          
+              const fragment = document.createDocumentFragment(); // Use a fragment for better performance
+          
+              for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                
+                // Style the confetti directly with inline styles
+                confetti.style.position = 'absolute';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = `hsl(${random(360)}, 100%, 50%)`;
+                confetti.style.left = `${button.offsetLeft + random(200) - 50}px`; // Randomize around the button
+                confetti.style.top = `${button.offsetTop + random(100) - 25}px`;
+                confetti.style.opacity = '1';
+                confetti.style.transition = 'transform 2s ease-out, opacity 2s ease-out';
+          
+                // Append to fragment
+                fragment.appendChild(confetti);
+          
+                // Animate the confetti
+                setTimeout(() => {
+                  confetti.style.transform = `translateY(${random(300) + 100}px)`;
+                  confetti.style.opacity = '0';
+    }, 10);
+          
+    // Remove confetti after the animation ends
+    setTimeout(() => confetti.remove(), 1000);
+    }
+          
+    // Append the fragment to the body
+     document.body.appendChild(fragment);
+});
+});
+          
