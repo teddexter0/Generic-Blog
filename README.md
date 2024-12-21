@@ -10,7 +10,7 @@
 
 #Project utilises a sophisticated REST API for HTTPS.
 
-#The backend integrates local user registration and login functionality, securely storing emails and passwords using salted hashing, managed via pgAdmin/PostgreSQL. OAuth 2.0 is implemented for third-party logins with providers such as Google, Instagram and Facebook.
+#The backend integrates local user registration and login functionality, securely storing emails and passwords using salted hashing, managed via PostgreSQL. OAuth 2.0 is implemented for third-party logins with providers such as Google, Instagram and Facebook.
 
 #Clients can make their own posts, with CRUD functionality. Clients can reset their passwords if forgotten. Google reCAPTCHA integrated for security. Axios and newsAPI integrated for perpetual refreshing of trendy news/articles.
 

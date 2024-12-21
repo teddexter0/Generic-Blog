@@ -24,7 +24,11 @@
     display: none;
 }
 
-.two > h3, form, button{
+#sub{
+    display: none;
+}
+
+.two > h3, .two > form{
     display: none;
 }
 
