@@ -17,7 +17,7 @@
 /* LogIn SignUp */
 #btn-container {
     position: relative;
-    padding: 10px;
+    padding: 5px;
     display: flex;
     gap: 10px;
 }
@@ -29,7 +29,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: crimson;
+    background-color: black;
     border-radius: 15px;
   }
 
@@ -41,7 +41,7 @@ li a, .dropbtn {
   display: inline-block;
   color: white;
   text-align: center;
-  padding: 14px 16px;
+  padding: 0.5em;
   text-decoration: none;
 }
 
@@ -57,14 +57,15 @@ li.dropdown {
   display: none;
   position: absolute;
   background-color: white;
-  min-width: 160px;
+  min-width: 100%;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  border-radius: 15px;
 }
 
 .dropdown-content a {
   color: black;
-  padding: 12px 16px;
+  padding: 0.5em;
   text-decoration: none;
   display: block;
   text-align: left;
@@ -79,19 +80,6 @@ li.dropdown {
   display: block;
 }
 
-/* Overall div to position the logIn signUp and the hr Nav Bar */
-.nav {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-/* It was suppose to be a hamburger menu */
-.hamburger-contents{
-  display: inline-block;
-  overflow: hidden;
-  border-radius: 10px;
-  margin-top: 2px;
-}
 
 .dropbtn {
   font-family: "Permanent Marker", cursive;
@@ -102,4 +90,175 @@ li.dropdown {
 
 #welcome{
   color: chartreuse;
+}
+
+
+nav{
+  background-color: black;
+  border-bottom: 1px solid navy;
+  border-radius: 5px;
+}
+
+nav ul{
+  list-style: none;
+  display: flex;
+}
+
+nav .home-li{
+  margin-right: auto;
+}
+
+nav li{
+  display: flex;
+}
+
+nav a{
+  display: flex;
+  text-decoration: none;
+  color: white;
+  padding: 1em 2em;
+}
+
+nav a:hover{
+  background-color: beige;
+  color: lime;
+  border-radius: 15px;
+}
+
+nav a.accent-link{
+  background-color: crimson;
+  border-radius: 5px;
+  &:hover{
+      background-color: navy;
+  }
+}
+#open-sidebar-button{
+  display: none;
+  background: none;
+  border-radius: 15px;
+  border: none;
+  padding: .5em;
+  margin-left: auto;
+  cursor: pointer;
+  font-size: xx-large;
+  &:hover{
+      background-color: orangered;
+      color: white;
+  }
+}
+
+#close-sidebar-button{
+  display: none;
+  background: none;
+  border: none;
+  border-radius: 15px;
+  padding: 0.5em;
+  cursor: pointer;
+  font-size: x-large;
+  &:hover{
+      background-color: orangered;
+  }
+} 
+
+#overlay{
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  display: none;
+}
+/* mostly phone screens */
+@media screen and (max-width: 700px){
+  #open-sidebar-button, #close-sidebar-button{
+      display: block;
+  }
+  nav{
+      position: fixed;
+      top: 0;
+      right: -100%;
+      height: 100vh;
+      width: min(15em, 100%);
+      z-index: 10;
+      border-left: 1px solid navy;
+      transition: right 300ms ease-out;
+  }
+  nav.show{
+      right: 0;
+  }
+
+  nav.show ~ #overlay{
+      display: block;
+  }
+
+  nav ul{
+      width: 100%;
+      flex-direction: column;
+  }
+
+  nav a{
+      width: 100%;
+      padding-left: 2.5em;
+  }
+
+  nav a.active-link{
+      border-bottom: none;
+  }
+
+  nav .home-li{
+      margin-right: unset;
+  }
+}
+
+/* Specific rule for iPad Air and similar devices */
+@media screen and (min-width: 820px) and (max-width: 1366px) {
+  nav {
+      position: static; /* Align nav at the top */
+      display: flex;
+      justify-content: space-between; /* Space items evenly */
+      align-items: center; /* Align items vertically */
+      width: 100%; /* Ensure nav takes full screen width */
+      padding: 0 1em; /* Add padding inside nav */
+      box-sizing: border-box; /* Include padding in width calculation */
+  }
+  nav ul {
+      display: flex;
+      flex-wrap: wrap; /* Allow items to wrap if necessary */
+      justify-content: space-between; /* Spread items evenly */
+      width: 100%;
+  }
+  nav li {
+      list-style: none;
+  }
+  nav a {
+      white-space: nowrap; /* Prevent text from breaking into multiple lines */
+      padding: 0.5em 1em;
+  }
+}
+
+.skip-link{
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  background-color: orangered;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: opacity 0.3s ease;
+
+  &:focus{
+      opacity: 1;
+      pointer-events: auto;
+      outline: 3px solid white;
+  }
+}
+
+
+#trends, #clientPosts, #homePage{
+  color: dodgerblue;
 }

@@ -44,7 +44,7 @@
     animation: slideIn 9s forwards;
     white-space: nowrap; /* Prevents breaking into multiple lines */
     overflow: hidden; /* Hides any overflowing text */
-    z-index: 300; /* Place the banner above the image container */
+    z-index: 111300; /* Place the banner above the image container */
   }
   
   @keyframes slideIn { 

@@ -27,26 +27,6 @@
   display: none;
 }
 
-.nav > .hamburger-contents{
-  display: none;
-}
-
-#clientPosts{
-  display: none;
-}
-
-#log-in, #sign-up{
-  display: none;
-}
-
-#trends{
-  display: none;
-}
-
-#homePage{
-  margin-left: 90vw !important;
-}
-
 #here{
   color: blue;
   text-decoration: underline;

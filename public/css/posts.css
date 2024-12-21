@@ -16,18 +16,6 @@ body {
     display: none;
 }
 
-.nav > .hamburger-contents{
-    display: none;
-}
-
-#clientPosts{
-    display: none;
-}
-
-#log-in, #sign-up{
-    display: none;
-}
-
 #trends-posts{
     position: relative;
     padding: 10px !important;

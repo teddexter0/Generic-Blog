@@ -80,47 +80,18 @@ input[type="email"], input[type="password"], input[type="text"]{
     padding: 5px;
   }
 
-  #trends-posts{
-    display: grid;
-    place-items: center;
-    position: relative;
-    padding: 5px;
-  }
-  
-  #trends-posts a{
-    text-decoration: none;
-  }
-
-  #trends-posts button{
-    display: inline-block; /* Makes the border wrap around the text */ 
-    background: rgb(7, 165, 20);
-    padding: 5px 10px 5px 10px;
-    font-weight: lighter;
-    border: none;
-    margin: 5%;
-    text-align: center;
-    color: white;
-  }
-
-  #trends-posts button:hover {
-  background-color: royalblue;
-}
-
-#trends-posts button:active{
-    background-color: #E0E1E4;
-    color: #272727;
-}
-
-#logout > button{
+#logout{
   background-color: black;
   margin: 10px;
 }
 
-#logout > button:hover{
+#logout:hover{
     background-color: white;
     color: black;
 }
 
-#logout > button:active{
+#logout:active{
   background-color: yellow;
 }
+
+

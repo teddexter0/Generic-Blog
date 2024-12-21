@@ -129,3 +129,42 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 });
           
+
+const openButton = document.getElementById('open-sidebar-navbar');
+const navbar = document.getElementById('navbar');
+
+const media = window.matchMedia("(width < 700px)");
+
+media.addEventListener('change', (e) => updateNavbar(e));
+
+function updateNavbar(e) {
+    const isMobile = e.matches // if its true we are on a mobile device, it is true, else...it is false
+    conosle.log(isMobile);
+    if (isMobile) {
+        navbar.setAttribute('inert', '');
+    } else {
+        //desktop device
+        navbar.removeAttribute('inert');
+    }
+}
+
+function openSidebar(){
+navbar.classList.add('show')
+openButton.setAttribute('aria-expanded', 'true')
+navbar.removeAttribute('inert')
+}
+
+function closeSidebar() {
+navbar.classList.remove('show')
+openButton.setAttribute('aria-expanded', 'false')
+navbar.setAttribute('inert', '')
+}
+
+const navLinks = document.querySelectorAll('nav a')
+navLinks.forEach(link => {
+link.addEventListener('click', () => {
+    closeSidebar();
+}) 
+})
+
+updateNavbar(media);
