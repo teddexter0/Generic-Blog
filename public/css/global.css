@@ -11,8 +11,8 @@
     overflow-y: auto; /* Allows vertical scrolling */
     width: 100%;
     background: linear-gradient(45deg, #A50044, #004D98, #ed6b00); /* Barca colors */
-    background-size: 300% 300%; /* Oversized for animation effect */
-    animation: moveGradient 15s ease infinite; /* Smooth animation loop */
+    background-size: 500em 500em; /* Oversized for animation effect */
+    animation: moveGradient 7s ease infinite; /* Smooth animation loop */
     overflow-x: hidden; /* Prevent horizontal scrolling */
     letter-spacing: 1px;
   }

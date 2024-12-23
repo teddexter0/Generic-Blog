@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 import express from "express";
-dotenv.config({ path: "../.env" });
 import path from "path";
 import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
@@ -13,8 +12,10 @@ import LocalStrategy from "passport-local";
 import reqFlash from "req-flash";
 import newsAPI from "./newsAPI.js";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-import nodemailer from "nodemailer"; // Correct import for nodemailer
-import crypto from "crypto"; // Correct import for crypto
+import crypto from "crypto";
+import nodemailer from "nodemailer";
+
+dotenv.config({ path: "../.env" });
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -118,9 +119,9 @@ passport.use(
 passport.use(
   new GoogleStrategy(
     {
-      clientID: "YOUR_GOOGLE_CLIENT_ID",
-      clientSecret: "YOUR_GOOGLE_CLIENT_SECRET",
-      callbackURL: "http://localhost:3000/auth/google/callback",
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: process.env.CALLBACK_URL,
     },
     async (token, tokenSecret, profile, done) => {
       try {
@@ -359,6 +360,137 @@ function ensureAuthenticated(req, res, next) {
   }
   res.redirect("/login");
 }
+
+// Define the sendEmail function
+const sendEmail = async (recipientEmail, message) => {
+  try {
+    // Configure the transporter
+    const transporter = nodemailer.createTransport({
+      service: "Gmail", // Use Gmail or your email provider
+      auth: {
+        user: process.env.EMAIL_USER, // Your email address
+        pass: process.env.EMAIL_PASS, // Your email password or app-specific password
+      },
+    });
+
+    // Configure email options
+    const mailOptions = {
+      from: `"Your Blog Name" <${process.env.EMAIL_USER}>`, // Sender address
+      to: recipientEmail, // List of recipients
+      subject: "Password Reset Request", // Subject line
+      text: message, // Plain text body
+    };
+
+    // Send email
+    await transporter.sendMail(mailOptions);
+    console.log("Email sent successfully!");
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
+};
+
+// Serve the forgot password form
+app.get("/forgot-password", (req, res) => {
+  res.render("forgot-password"); // Make sure you have a `forgot-password.ejs` file in your views folder
+});
+
+// Forgot password - request reset
+app.post("/reset-password-request", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // Check if user exists
+    const userResult = await db.query("SELECT id FROM users WHERE email = $1", [
+      email,
+    ]);
+    if (userResult.rows.length === 0) {
+      req.flash("error", "No user found with that email address.");
+      return res.redirect("/forgot-password");
+    }
+
+    const userId = userResult.rows[0].id;
+
+    // Generate reset token and expiration
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    const expirationTime = Date.now() + 3600000; // 1 hour
+
+    // Update the users table
+    await db.query(
+      "UPDATE users SET reset_token = $1, reset_token_expiration = $2 WHERE id = $3",
+      [resetToken, expirationTime, userId]
+    );
+
+    // Send email with the reset link
+    const resetLink = `http://localhost:3000/reset-password/${resetToken}`;
+    console.log(`Reset link: ${resetLink}`); // Debug log
+    sendEmail(email, `Your password reset link: ${resetLink}`);
+
+    req.flash("success", "Password reset email sent!");
+    res.redirect("/login");
+  } catch (error) {
+    console.error("Error in /reset-password-request:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+// Reset password form route
+app.get("/reset-password/:token", async (req, res) => {
+  const { token } = req.params;
+
+  try {
+    // Find user with the matching token and check expiration
+    const userResult = await db.query(
+      "SELECT id FROM users WHERE reset_token = $1 AND reset_token_expiration > $2",
+      [token, Date.now()]
+    );
+
+    if (userResult.rows.length === 0) {
+      req.flash("error", "Invalid or expired token.");
+      return res.redirect("/forgot-password");
+    }
+
+    // Render the reset password form
+    res.render("reset-password", { token });
+  } catch (error) {
+    console.error("Error in /reset-password/:token:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+// Process password reset
+app.post("/reset-password", async (req, res) => {
+  const { token, newPassword } = req.body;
+
+  try {
+    // Find user with the matching token
+    const userResult = await db.query(
+      "SELECT id FROM users WHERE reset_token = $1 AND reset_token_expiration > $2",
+      [token, Date.now()]
+    );
+
+    if (userResult.rows.length === 0) {
+      req.flash("error", "Invalid or expired token.");
+      return res.redirect("/forgot-password");
+    }
+
+    const userId = userResult.rows[0].id;
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the password and clear the reset token
+    await db.query(
+      "UPDATE users SET password = $1, reset_token = NULL, reset_token_expiration = NULL WHERE id = $2",
+      [hashedPassword, userId]
+    );
+
+    req.flash("success", "Password reset successfully!");
+    res.redirect("/login");
+  } catch (error) {
+    console.error("Error in /reset-password:", error);
+    res.status(500).send("Internal server error");
+  }
+});
 
 // Start the server
 app.listen(port, () => {
