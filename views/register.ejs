@@ -1,33 +1,41 @@
 <head>
-    <link rel="stylesheet" href="/css/auth.css">
-    <%- include('partials/header') %>
+  <link rel="stylesheet" href="/css/auth.css" />
+  <%- include('partials/header') %>
 </head>
 
 <form action="/register" method="post" class="sign-up" autocomplete="off">
-
-    <div id="signup-container">
-        <b>Name</b>:
-        <input type="text" required name="username"placeholder="Enter your name">
-        <br>
-        <br>
-     <b>E-mail</b>:
-        <input type="email" required name="email" placeholder="Enter your e-mail">
-        <br>
-        <br>
-     <b>Password</b>:
-        <input type="password" required name="password" placeholder="Enter your password">
-    </div><br>
-    <div class="rem-btn">
-    
-    <a href="/login">Already have an account? <br> Login <span id="here">here</span> </a>
+  <div id="signup-container">
+    <b>Name</b>:
+    <input type="text" required name="username" placeholder="Enter your name" />
+    <br />
+    <br />
+    <b>E-mail</b>:
+    <input type="email" required name="email" placeholder="Enter your e-mail" />
+    <br />
+    <br />
+    <b>Password</b>:
+    <input
+      type="password"
+      required
+      name="password"
+      placeholder="Enter your password"
+    />
+  </div>
+  <br />
+  <div class="rem-btn">
+    <a href="/login"
+      >Already have an account? <br />
+      Login <span id="here">here</span>
+    </a>
     <button type="submit">Sign Up!</button>
-</div>
+  </div>
 </form>
 
-<br>
-<br>
+<div class="third-party">
+  <a href="/auth/google/">Sign up with Google</a>
+</div>
 
+<br />
+<br />
 
 <%- include('partials/footer.ejs') %>
-
-

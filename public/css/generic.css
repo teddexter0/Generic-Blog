@@ -22,3 +22,11 @@
     font-style: normal;
     font-size: medium;
   }
+
+  p{
+    text-align: left;
+  }
+
+  h5, h6{
+    text-align: right;
+  }

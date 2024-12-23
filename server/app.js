@@ -1,4 +1,6 @@
+import dotenv from "dotenv";
 import express from "express";
+dotenv.config({ path: "../.env" });
 import path from "path";
 import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
@@ -8,14 +10,14 @@ import pg from "pg";
 import bcrypt, { hash } from "bcrypt";
 import passport from "passport";
 import LocalStrategy from "passport-local";
-import dotenv from "dotenv";
 import reqFlash from "req-flash";
-import newsAPI from "./newsAPI.js"; // Note the './' and '.js' extension
+import newsAPI from "./newsAPI.js";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import nodemailer from "nodemailer"; // Correct import for nodemailer
+import crypto from "crypto"; // Correct import for crypto
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-dotenv.config({ path: "../.env" });
 
 const saltRounds = 10;
 const db = new pg.Client({
@@ -25,9 +27,6 @@ const db = new pg.Client({
   database: process.env.PG_DATABASE,
   port: process.env.PG_PORT, // Ensure port is a number
 });
-
-console.log("PG_PASSWORD:", process.env.PG_PASSWORD);
-console.log(`Connecting to database with password: ${process.env.PG_PASSWORD}`);
 
 db.connect((err) => {
   if (err) {
@@ -88,7 +87,6 @@ app.use((req, res, next) => {
 });
 
 app.use(newsAPI); // Use the newsAPI router for /trends
-
 passport.use(
   new LocalStrategy(
     { usernameField: "email" },
@@ -117,6 +115,45 @@ passport.use(
     }
   )
 );
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: "YOUR_GOOGLE_CLIENT_ID",
+      clientSecret: "YOUR_GOOGLE_CLIENT_SECRET",
+      callbackURL: "http://localhost:3000/auth/google/callback",
+    },
+    async (token, tokenSecret, profile, done) => {
+      try {
+        // Check if the Google account already exists in your local DB
+        const existingUser = await db.query(
+          "SELECT * FROM users WHERE email = $1",
+          [profile.emails[0].value]
+        );
+
+        if (existingUser.rows.length > 0) {
+          // If the user exists, log them in
+          return done(null, existingUser.rows[0]);
+        } else {
+          // If the user doesn't exist, register them with Google details
+          const newUser = await db.query(
+            "INSERT INTO users (username, email, google_id, picture) VALUES ($1, $2, $3, $4) RETURNING *",
+            [
+              profile.displayName,
+              profile.emails[0].value,
+              profile.id,
+              profile.photos[0].value,
+            ]
+          );
+
+          return done(null, newUser.rows[0]);
+        }
+      } catch (err) {
+        console.log("Error during Google login:", err);
+        return done(err);
+      }
+    }
+  )
+);
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -130,7 +167,22 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   }
 });
+// Google login route
+app.get(
+  "/auth/google",
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+  })
+);
 
+// Google OAuth callback route
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "/login",
+    successRedirect: "/posts",
+  })
+);
 // Routes to render the pages
 // home, login, register(sign up), generic
 app.get("/", (req, res) => {

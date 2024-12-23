@@ -1,12 +1,15 @@
 <head>
-    <link rel="stylesheet" href="/css/posts.css">
-    <%- include('partials/header') %>
+  <link rel="stylesheet" href="/css/posts.css" />
+  <%- include('partials/header') %>
 </head>
+<% if (registeredName) { %>
+<h2 id="welcome" style="text-align: center">
+  Hi <%= registeredName %>, welcome to your posts!
+</h2>
+<% } %>
 
 <div class="outer">
-<!-- JUST INTEGRATE THE CRUD LOGIC  -->
+  <!-- JUST INTEGRATE THE CRUD LOGIC  -->
 </div>
-
-
 
 <%- include('partials/footer.ejs') %>

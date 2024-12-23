@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@accounts/oauth-instagram": "^0.32.1",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
@@ -11,18 +12,23 @@
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-session": "^1.18.1",
+    "google-oauth2": "^0.1.0",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "node-cache": "^5.1.2",
     "node-fetch": "^3.3.2",
+    "nodemailer": "^6.9.16",
     "nodemon": "^3.1.7",
     "passport": "^0.7.0",
     "passport-facebook": "^3.0.0",
+    "passport-google-oauth": "^2.0.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-instagram": "^1.0.0",
     "passport-local": "^1.0.0",
     "passport-twitter": "^0.1.5",
     "pg": "^8.13.1",
-    "req-flash": "^0.0.3"
+    "req-flash": "^0.0.3",
+    "twitter-oauth2": "^1.1.2"
   },
   "type": "module"
 }

@@ -35,3 +35,7 @@
 #log-in, #sign-up{
     display: flex;
 }
+
+.dropdown-content > a{
+    display: none !important;
+}

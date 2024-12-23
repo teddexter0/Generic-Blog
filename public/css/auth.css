@@ -53,3 +53,18 @@ button[type="submit"]{
 #sub{
   display: none;
 }
+
+.third-party, .third-party > a{
+  text-decoration: none;
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 0.5em;
+}
+
+.third-party{
+  margin-top: 5px;
+}

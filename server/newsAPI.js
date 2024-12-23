@@ -2,15 +2,15 @@ import express from "express";
 import fetch from "node-fetch";
 import NodeCache from "node-cache";
 
-// Initialize in-memory cache with a 5-minute TTL (Time To Live)
-const cache = new NodeCache({ stdTTL: 180 }); // 3 minutes
+// Initialize in-memory cache with a 3-minute TTL
+const cache = new NodeCache({ stdTTL: 180 });
 
 const newsAPI = express.Router();
 
 // Fetch news data from the NewsAPI
-const fetchNews = async (page = 1, query = "") => {
-  const baseUrl = "https://newsapi.org/v2/everything"; // Use 'everything' endpoint for broader search
-  const apiKey = "cb1267ffaf314d19938062978c85a05f";
+const fetchNews = async (endpoint = "top-headlines", page = 1, query = "") => {
+  const baseUrl = `https://newsapi.org/v2/${endpoint}`;
+  const apiKey = process.env.NEWS_API_KEY;
   const url = new URL(baseUrl);
 
   // Append query parameters
@@ -19,9 +19,9 @@ const fetchNews = async (page = 1, query = "") => {
   url.searchParams.append("pageSize", 6); // Limit to 6 articles per page
 
   if (query) {
-    url.searchParams.append("q", query); // Search specific topics
+    url.searchParams.append("q", query); // Specific search query
   } else {
-    url.searchParams.append("q", "latest"); // Default query for general topics
+    url.searchParams.append("country", "us"); // Default to US top headlines
   }
 
   // Fetch data from the NewsAPI
@@ -37,29 +37,45 @@ const fetchNews = async (page = 1, query = "") => {
 // Define the /trends route
 newsAPI.get("/trends", async (req, res) => {
   try {
-    const page = parseInt(req.query.page, 10) || 1; // Default to page 1
-    const query = req.query.query || ""; // Default to no search query
+    const page = parseInt(req.query.page, 10) || 1;
+    const query = req.query.query || ""; // Use query if provided
+    const refresh = req.query.refresh === "true"; // Check if refresh is requested
 
-    // Check if articles are in the cache
-    let articles = cache.get("articles");
+    let articles;
 
-    if (!articles) {
-      // If not cached, fetch and cache the data
-      console.log("Fetching new articles...");
-      articles = await fetchNews(page, query);
-      cache.set("articles", articles); // Cache for 5 minutes
+    if (refresh) {
+      console.log("Refreshing articles...");
+      articles = await fetchNews("top-headlines", page, query);
+      cache.set("articles", articles); // Update cache with fresh data
     } else {
-      console.log("Using cached articles...");
+      articles = cache.get("articles");
+
+      if (!articles) {
+        console.log("Fetching new articles...");
+        articles = await fetchNews(
+          query ? "everything" : "top-headlines",
+          page,
+          query
+        );
+        cache.set("articles", articles); // Cache for 3 minutes
+      } else {
+        console.log("Using cached articles...");
+      }
     }
 
     res.render("trends", { articles, currentPage: page, query });
   } catch (error) {
     console.error("Error fetching news:", error);
     res.status(500).render("trends", {
-      articles: [],
-      currentPage: 1,
-      query: "",
-      errorMessage: "Failed to load news. Please try again later.",
+      articles: articles.map((article) => ({
+        title: article.title || "No Title Available",
+        description: article.description || "No Description Available",
+        url: article.url || "#",
+        urlToImage: article.urlToImage || "https://via.placeholder.com/150",
+        author: article.author || "Unknown Author",
+      })),
+      currentPage: page,
+      query,
     });
   }
 });

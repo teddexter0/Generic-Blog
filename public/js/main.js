@@ -116,14 +116,14 @@ document.addEventListener("DOMContentLoaded", function () {
       // Append to fragment
       fragment.appendChild(confetti);
 
-      // Animate the confetti
+      // Force reflow by triggering a style change before applying the animation
       setTimeout(() => {
         confetti.style.transform = `translateY(${random(300) + 100}px)`;
         confetti.style.opacity = "0";
-      }, 10);
+      }, 0); // Apply animation immediately after adding to the DOM
 
-      // Remove confetti after the animation ends
-      setTimeout(() => confetti.remove(), 1000);
+      // Remove confetti after the animation ends (2 seconds)
+      setTimeout(() => confetti.remove(), 2000); // Remove after the 2s animation duration
     }
 
     // Append the fragment to the body
@@ -167,3 +167,37 @@ navLinks.forEach((link) => {
 });
 
 updateNavbar(media);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const refreshButton = document.getElementById("refresh-btn");
+  let refreshTimer = 3 * 60 * 1000; // 3 minutes in milliseconds
+  let timer;
+
+  const enableButton = () => {
+    refreshButton.disabled = false;
+    refreshButton.innerText = "Refresh";
+  };
+
+  const startTimer = () => {
+    refreshButton.disabled = true;
+    refreshButton.innerText = `Wait 3 minutes...`;
+
+    timer = setTimeout(enableButton, refreshTimer);
+  };
+
+  // Start the timer when the page loads
+  startTimer();
+
+  // Handle the refresh button click
+  refreshButton.addEventListener("click", () => {
+    if (!refreshButton.disabled) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("refresh", "true");
+      window.location.href = url.toString();
+    }
+  });
+
+  // Restart the timer when the "Next" button is clicked
+  const nextButton = document.querySelector("a[href*='page=']");
+  nextButton?.addEventListener("click", startTimer);
+});
