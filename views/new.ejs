@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Post</title>
+    <link rel="stylesheet" href="/css/trends.css" />
+
+    <style>
+      form,
+      input {
+        display: grid;
+        padding: 20%;
+        letter-spacing: 1px;
+        font-size: large;
+      }
+
+      #content {
+        letter-spacing: 1px;
+        font-size: large;
+        padding: 20%;
+        margin: 5%;
+      }
+
+      form {
+        width: 40em;
+      }
+
+      textarea {
+        width: 40em;
+      }
+
+      #title {
+        border: solid black 1px;
+        padding: 5%;
+        margin: 5%;
+        width: 40em;
+      }
+    </style>
+    <%- include('partials/header') %>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Create a New Post</h1>
+      <form action="/new" method="POST">
+        <label for="title">
+          <span style="text-decoration: underline">Title:</span></label
+        >
+        <input type="text" name="title" id="title" required />
+        <label for="content"
+          ><span style="text-decoration: underline">Content:</span></label
+        >
+        <textarea name="content" id="content" required></textarea>
+        <br />
+        <input type="hidden" name="user_id" value="123" />
+        <!-- Replace with dynamic user ID -->
+        <button type="submit" class="btn btn-success">
+          Launch <span style="font-size: large">!</span>
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
+
+<%- include('partials/footer.ejs') %>

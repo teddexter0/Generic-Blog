@@ -72,9 +72,6 @@
                 <a href="/generic" class="dropbtn">Science</a>
             </li>
             <li class="dropdown">
-                <a href="/generic" class="dropbtn">Fitness</a>
-            </li>
-            <li class="dropdown">
                 <a href="/generic" class="dropbtn">Fashion</a>
             </li>
             <li class="dropdown">
@@ -107,6 +104,7 @@
 
       <% if (isAuthenticated) { %>
         <a href="/logout" id="logout">Log Out</a>
+        <a href="/deleteUser" style="background-color: red; color: black;">Delete account</a>
       <% } else { %>
         <div id="btn-container">
             <li><a class="accent-link" href="/login" id="log-in">Log In</a></li>

@@ -25,6 +25,7 @@ input{
     border: solid black 1px !important;
     border-radius: 15px;
     letter-spacing: 2px;
-    padding: 0.5em;
+    padding: 50%;
     font-size: large;
+    color: black;
 }

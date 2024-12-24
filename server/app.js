@@ -123,6 +123,8 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: process.env.CALLBACK_URL,
+      userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
+      scope: ["profile", "email"],
     },
     async (token, tokenSecret, profile, done) => {
       try {
@@ -138,13 +140,8 @@ passport.use(
         } else {
           // If the user doesn't exist, register them with Google details
           const newUser = await db.query(
-            "INSERT INTO users (username, email, google_id, picture) VALUES ($1, $2, $3, $4) RETURNING *",
-            [
-              profile.displayName,
-              profile.emails[0].value,
-              profile.id,
-              profile.photos[0].value,
-            ]
+            "INSERT INTO users (username, email, google_id) VALUES ($1, $2, $3) RETURNING *",
+            [profile.displayName, profile.emails[0].value, profile.id]
           );
 
           return done(null, newUser.rows[0]);
@@ -173,7 +170,10 @@ passport.deserializeUser(async (id, done) => {
 app.get(
   "/auth/google",
   passport.authenticate("google", {
-    scope: ["profile", "email"],
+    scope: [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile",
+    ],
   })
 );
 
@@ -181,10 +181,44 @@ app.get(
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "/login",
-    successRedirect: "/posts",
-  })
+    failureRedirect: "/login?error=auth_failed",
+  }),
+  (req, res) => {
+    res.redirect("/posts");
+  }
 );
+
+app.get("/deleteUser", ensureAuthenticated, (req, res) => {
+  res.send(`
+    <h1>Are you sure you want to delete your profile?</h1>
+    <form action="/deleteUser" method="POST">
+      <button type="submit">Yes, delete my profile</button>
+    </form>
+    <a href="/home">No, take me back</a>
+  `);
+});
+app.post("/deleteUser", async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    // Deleting the user from the database (assuming you want to delete the user as well)
+    await db.query("DELETE FROM users WHERE id = $1", [userId]);
+
+    // Logout the user from the session
+    req.logout(function (err) {
+      if (err) {
+        return next(err); // Pass the error to the next middleware if any
+      }
+
+      // Redirect or send response after successful logout
+      res.redirect("/login"); // Redirect to login page after successful deletion
+    });
+  } catch (error) {
+    console.error("Error deleting profile:", error);
+    res.status(500).send("Error deleting profile");
+  }
+});
+
 // Routes to render the pages
 // home, login, register(sign up), generic
 app.get("/", (req, res) => {
@@ -265,8 +299,10 @@ app.get("/posts", ensureAuthenticated, async (req, res) => {
     const result = await db.query("SELECT username FROM users WHERE id = $1", [
       req.user.id,
     ]);
+
+    const postsDB = await db.query("SELECT * FROM posts ORDER BY id DESC");
     const registeredName = result.rows[0]?.username || "User"; // Default to "User" if no username found
-    res.render("posts", { registeredName }); // Pass it as an object
+    res.render("posts", { registeredName, posts: postsDB.rows }); // Pass it as an object
   } catch (error) {
     console.log(error);
     res.status(500).send("Server-side error, please try again later");
@@ -519,7 +555,69 @@ const sendEmail = async (recipientEmail, message) => {
   }
 };
 
-//email sending utility
+//CRUD Client posts
+
+// Route to display the form for a new post
+app.get("/new", (req, res) => {
+  res.render("new");
+});
+
+// Route to handle new post creation
+app.post("/new", async (req, res) => {
+  const { title, content, user_id } = req.body;
+  try {
+    const date = new Date().toISOString().slice(0, 10);
+    const time = new Date().toLocaleTimeString();
+    await db.query(
+      "INSERT INTO posts (title, content, date, time, user_id) VALUES ($1, $2, $3, $4, $5)",
+      [title, content, date, time, user_id]
+    );
+    res.redirect("/");
+  } catch (err) {
+    console.error(err);
+    res.send("Error creating post");
+  }
+});
+
+// Route to display edit form
+app.get("/edit/:id", async (req, res) => {
+  try {
+    const result = await db.query("SELECT * FROM posts WHERE id = $1", [
+      req.params.id,
+    ]);
+    res.render("edit", { post: result.rows[0] });
+  } catch (err) {
+    console.error(err);
+    res.send("Error fetching post");
+  }
+});
+
+// Route to handle post editing
+app.post("/edit/:id", async (req, res) => {
+  const { title, content } = req.body;
+  try {
+    await db.query("UPDATE posts SET title = $1, content = $2 WHERE id = $3", [
+      title,
+      content,
+      req.params.id,
+    ]);
+    res.redirect("/");
+  } catch (err) {
+    console.error(err);
+    res.send("Error updating post");
+  }
+});
+
+// Route to handle deletion
+app.get("/delete/:id", async (req, res) => {
+  try {
+    await db.query("DELETE FROM posts WHERE id = $1", [req.params.id]);
+    res.redirect("/");
+  } catch (err) {
+    console.error(err);
+    res.send("Error deleting post");
+  }
+});
 
 // Start the server
 app.listen(port, () => {
