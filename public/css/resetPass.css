@@ -14,7 +14,7 @@ h2{
 }
 
 form{
-    display: flex;
+    display: grid;
     justify-content: space-between;
     gap: 0.5em;
     align-items: center;

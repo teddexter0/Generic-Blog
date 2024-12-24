@@ -14,6 +14,7 @@ import newsAPI from "./newsAPI.js";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
+import { google } from "googleapis";
 
 dotenv.config({ path: "../.env" });
 
@@ -353,6 +354,11 @@ app.post(
   })
 );
 
+// Serve the forgot password form
+app.get("/forgot-password", (req, res) => {
+  res.render("forgot-password");
+});
+
 // Middleware to ensure authentication
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -361,40 +367,7 @@ function ensureAuthenticated(req, res, next) {
   res.redirect("/login");
 }
 
-// Define the sendEmail function
-const sendEmail = async (recipientEmail, message) => {
-  try {
-    // Configure the transporter
-    const transporter = nodemailer.createTransport({
-      service: "Gmail", // Use Gmail or your email provider
-      auth: {
-        user: process.env.EMAIL_USER, // Your email address
-        pass: process.env.EMAIL_PASS, // Your email password or app-specific password
-      },
-    });
-
-    // Configure email options
-    const mailOptions = {
-      from: `"Your Blog Name" <${process.env.EMAIL_USER}>`, // Sender address
-      to: recipientEmail, // List of recipients
-      subject: "Password Reset Request", // Subject line
-      text: message, // Plain text body
-    };
-
-    // Send email
-    await transporter.sendMail(mailOptions);
-    console.log("Email sent successfully!");
-  } catch (error) {
-    console.error("Error sending email:", error);
-  }
-};
-
-// Serve the forgot password form
-app.get("/forgot-password", (req, res) => {
-  res.render("forgot-password"); // Make sure you have a `forgot-password.ejs` file in your views folder
-});
-
-// Forgot password - request reset
+//Reset password// Forgot Password - Request Reset
 app.post("/reset-password-request", async (req, res) => {
   const { email } = req.body;
 
@@ -420,10 +393,12 @@ app.post("/reset-password-request", async (req, res) => {
       [resetToken, expirationTime, userId]
     );
 
-    // Send email with the reset link
+    // Generate reset link
     const resetLink = `http://localhost:3000/reset-password/${resetToken}`;
     console.log(`Reset link: ${resetLink}`); // Debug log
-    sendEmail(email, `Your password reset link: ${resetLink}`);
+
+    // Send reset email
+    await sendEmail(email, `Your password reset link: ${resetLink}`);
 
     req.flash("success", "Password reset email sent!");
     res.redirect("/login");
@@ -433,23 +408,23 @@ app.post("/reset-password-request", async (req, res) => {
   }
 });
 
-// Reset password form route
+// Reset Password Form Route
 app.get("/reset-password/:token", async (req, res) => {
   const { token } = req.params;
 
   try {
-    // Find user with the matching token and check expiration
+    // Validate token and check expiration
     const userResult = await db.query(
       "SELECT id FROM users WHERE reset_token = $1 AND reset_token_expiration > $2",
       [token, Date.now()]
     );
 
     if (userResult.rows.length === 0) {
-      req.flash("error", "Invalid or expired token.");
+      req.flash("error", "Problem with token credential.");
       return res.redirect("/forgot-password");
     }
 
-    // Render the reset password form
+    // Render reset password form
     res.render("reset-password", { token });
   } catch (error) {
     console.error("Error in /reset-password/:token:", error);
@@ -457,12 +432,12 @@ app.get("/reset-password/:token", async (req, res) => {
   }
 });
 
-// Process password reset
+// Process the Reset Password
 app.post("/reset-password", async (req, res) => {
   const { token, newPassword } = req.body;
 
   try {
-    // Find user with the matching token
+    // Validate token and check expiration
     const userResult = await db.query(
       "SELECT id FROM users WHERE reset_token = $1 AND reset_token_expiration > $2",
       [token, Date.now()]
@@ -478,7 +453,7 @@ app.post("/reset-password", async (req, res) => {
     // Hash the new password
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    // Update the password and clear the reset token
+    // Update password and clear token
     await db.query(
       "UPDATE users SET password = $1, reset_token = NULL, reset_token_expiration = NULL WHERE id = $2",
       [hashedPassword, userId]
@@ -491,6 +466,60 @@ app.post("/reset-password", async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
+
+// OAuth2 Setup
+const OAuth2Client = new google.auth.OAuth2(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+  process.env.REDIRECT_URI
+);
+
+OAuth2Client.setCredentials({
+  refresh_token: process.env.GOOGLE_REFRESH_TOKEN,
+});
+
+// Email Sending Function
+const sendEmail = async (recipientEmail, message) => {
+  try {
+    // Get access token
+    const accessToken = await OAuth2Client.getAccessToken();
+
+    // Configure nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465, // Use 587 if you want STARTTLS instead of SSL
+      secure: true, // true for port 465, false for 587
+      auth: {
+        type: "OAuth2",
+        user: process.env.EMAIL_USER,
+        clientId: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
+        accessToken: accessToken.token, // Use accessToken.token, not token
+      },
+      tls: {
+        rejectUnauthorized: false, // Accept self-signed certificates
+      },
+    });
+
+    // Configure email options
+    const mailOptions = {
+      from: `"TeDex Blog" <${process.env.EMAIL_USER}>`,
+      to: recipientEmail,
+      subject: "Password Reset Request",
+      text: message,
+    };
+
+    // Send the email
+    await transporter.sendMail(mailOptions);
+    console.log("Email sent successfully!");
+  } catch (error) {
+    console.error("Error sending email:", error);
+    throw error;
+  }
+};
+
+//email sending utility
 
 // Start the server
 app.listen(port, () => {
