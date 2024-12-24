@@ -403,7 +403,7 @@ function ensureAuthenticated(req, res, next) {
   res.redirect("/login");
 }
 
-//Reset password// Forgot Password - Request Reset
+// Forgot Password - Request Reset
 app.post("/reset-password-request", async (req, res) => {
   const { email } = req.body;
 
@@ -437,7 +437,9 @@ app.post("/reset-password-request", async (req, res) => {
     await sendEmail(email, `Your password reset link: ${resetLink}`);
 
     req.flash("success", "Password reset email sent!");
-    res.redirect("/login");
+    res.send(
+      "If this email exists, a link to reset password has ben sent to your inbox"
+    );
   } catch (error) {
     console.error("Error in /reset-password-request:", error);
     res.status(500).send("Internal server error");
@@ -470,7 +472,12 @@ app.get("/reset-password/:token", async (req, res) => {
 
 // Process the Reset Password
 app.post("/reset-password", async (req, res) => {
-  const { token, newPassword } = req.body;
+  const { token, newPassword, confirmPassword } = req.body;
+
+  if (newPassword !== confirmPassword) {
+    req.flash("error", "Passwords do not match!");
+    return res.redirect(`/reset-password/${token}`);
+  }
 
   try {
     // Validate token and check expiration
@@ -559,37 +566,53 @@ const sendEmail = async (recipientEmail, message) => {
 
 // Route to display the form for a new post
 app.get("/new", (req, res) => {
-  res.render("new");
+  if (!req.isAuthenticated()) {
+    return res.redirect("/login");
+  }
+  res.render("new", { user: req.user }); // Pass the logged-in user
 });
 
 // Route to handle new post creation
-app.post("/new", async (req, res) => {
-  const { title, content, user_id } = req.body;
+app.post("/new", ensureAuthenticated, async (req, res) => {
+  const { title, content } = req.body; // Extract title and content from the request body
+  const userId = req.user.id; // Get the logged-in user's ID from the session
+
+  if (!title || !content) {
+    return res.status(400).send("Title and content are required.");
+  }
+
   try {
-    const date = new Date().toISOString().slice(0, 10);
-    const time = new Date().toLocaleTimeString();
+    // Check if the user exists in the database (the user should already exist)
+    const userCheck = await db.query("SELECT * FROM users WHERE id = $1", [
+      userId,
+    ]);
+
+    if (userCheck.rows.length === 0) {
+      return res.status(400).send("User not found. Please log in again.");
+    }
+
+    // Insert the new post with the authenticated user's ID
     await db.query(
-      "INSERT INTO posts (title, content, date, time, user_id) VALUES ($1, $2, $3, $4, $5)",
-      [title, content, date, time, user_id]
+      "INSERT INTO posts (title, content, user_id) VALUES ($1, $2, $3)",
+      [title, content, userId]
     );
-    res.redirect("/");
-  } catch (err) {
-    console.error(err);
-    res.send("Error creating post");
+
+    res.redirect("/posts"); // Redirect to the posts page after successful insertion
+  } catch (error) {
+    console.log("Error creating post:", error);
+    res.status(500).send("An error occurred while creating the post.");
   }
 });
 
 // Route to display edit form
 app.get("/edit/:id", async (req, res) => {
-  try {
-    const result = await db.query("SELECT * FROM posts WHERE id = $1", [
-      req.params.id,
-    ]);
-    res.render("edit", { post: result.rows[0] });
-  } catch (err) {
-    console.error(err);
-    res.send("Error fetching post");
+  if (!req.isAuthenticated()) {
+    return res.redirect("/login");
   }
+  const post = await db.query("SELECT * FROM posts WHERE id = $1", [
+    req.params.id,
+  ]);
+  res.render("edit", { post: post.rows[0], user: req.user });
 });
 
 // Route to handle post editing
@@ -601,18 +624,18 @@ app.post("/edit/:id", async (req, res) => {
       content,
       req.params.id,
     ]);
-    res.redirect("/");
+    res.redirect("/posts");
   } catch (err) {
     console.error(err);
     res.send("Error updating post");
   }
 });
 
-// Route to handle deletion
+// Route to handle deletion of posts
 app.get("/delete/:id", async (req, res) => {
   try {
     await db.query("DELETE FROM posts WHERE id = $1", [req.params.id]);
-    res.redirect("/");
+    res.redirect("/posts");
   } catch (err) {
     console.error(err);
     res.send("Error deleting post");

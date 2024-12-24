@@ -14,6 +14,6 @@
 
 #The backend integrates local user registration and login functionality, securely storing emails and passwords using salted hashing, managed via PostgreSQL. OAuth 2.0 is implemented for third-party logins with providers such as Google.
 
-#Clients can make their own posts, with CRUD functionality. Axios and newsAPI integrated for perpetual refreshing of trendy news/articles.
+#Clients can make their own read only posts, with CRUD functionality. Axios and newsAPI integrated for perpetual refreshing of trendy news/articles.
 
 #The project leverages a modern tech stack, including Node.js for server-side logic, Bcrypt for password hashing, npm for package management, and EJS for templating. Client can reset their local passwords if forgotten. Postman is used for API testing, while pgAdmin supports database management. Passport is used for managing client sessions.

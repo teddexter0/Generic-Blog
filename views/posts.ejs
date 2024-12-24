@@ -11,6 +11,26 @@
     .dropdown-content > a {
       display: none !important;
     }
+    .container > .outer {
+      width: 100%; /* Full width or adjust as needed */
+      max-width: 600px; /* Optional: limit the max width */
+      height: auto; /* Let the height grow naturally */
+      max-height: 300px; /* Maximum height before scrolling */
+      margin: 2px auto; /* Center align and add spacing */
+      padding: 2px; /* Inner spacing */
+      border: 1px solid black; /* Border for visibility */
+      border-radius: 15px; /* Optional: rounded corners */
+      overflow-y: auto; /* Enable vertical scrolling */
+      overflow-x: hidden; /* Disable horizontal scrolling */
+      box-sizing: border-box; /* Include padding in dimensions */
+      word-wrap: break-word; /* Wrap long words to fit */
+      white-space: pre-wrap; /* Preserve line breaks */
+      background-color: #e0e1e4;
+    .edit-delete {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
   </style>
 </head>
 <% if (registeredName) { %>
@@ -25,33 +45,24 @@
     <hr />
     <% posts.forEach(post => { %>
     <div class="outer">
-      <h2 style="text-align: right"><%= post.title %></h2>
-      <p style="text-align: right"><%= post.date %> | <%= post.time %></p>
-      <p style="text-align: left"><%= post.content %></p>
-      <p>Author: <%= registeredName %></p>
-      <a href="/edit/<%= post.id %>"
-        ><button class="btn btn-primary">Edit</button></a
-      >
-      <a
-        href="/delete/<%= post.id %>"
-        onclick="return confirm('Are you sure?');"
-      >
-        <button class="btn btn-danger">Delete</button>
-      </a>
-      <hr />
+      <h3 style="text-align: right">
+        <%= post.title %> <br />
+        Author: <%= registeredName %>
+      </h3>
+      <%= post.content %>
+      <div class=".edit-delete">
+        <a href="/edit/<%= post.id %>"
+          ><button class="btn btn-primary">Edit</button></a
+        >
+        <a
+          href="/delete/<%= post.id %>"
+          onclick="return confirm('Are you sure?');"
+        >
+          <button class="btn btn-danger">Delete</button>
+        </a>
+      </div>
     </div>
     <% }); %>
   </div>
 </div>
 <%- include('partials/footer.ejs') %>
-
-<!-- CRUD
-Client presses New Post button, 
-Client rerouted/displayed with a default tempelate form of title, topic, content, author 
-(author being passed as Author: "registeredName JS var" //the logic is there for variable
-Client submits, db updated...and front end displays the typed contexts
-Client is able to view posts, with edit/delete button below it...
-when Edit is pressed, client is able to update title, topic, content...Author is permanently integrated with code
-when Delete is pressed, there should be a "Are you sure"....confirmation kind of logic before permanently retracting it from db
-
--->

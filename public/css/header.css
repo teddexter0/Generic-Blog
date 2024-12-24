@@ -262,3 +262,11 @@ nav a.accent-link{
 #trends, #clientPosts, #homePage{
   color: dodgerblue;
 }
+
+#deleteUser{
+  background-color: crimson; 
+  color: white; 
+  &:hover {
+    color: black; 
+    background-color: white};
+}
