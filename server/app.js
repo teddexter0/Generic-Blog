@@ -395,6 +395,10 @@ app.get("/forgot-password", (req, res) => {
   res.render("forgot-password");
 });
 
+//Privacy policy
+app.get("/privacy", (req, res) => {
+  res.render("privacy");
+});
 // Middleware to ensure authentication
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {

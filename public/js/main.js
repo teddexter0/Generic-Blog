@@ -1,6 +1,6 @@
 // Code mainly for automatic image and dot sliders
-var currentIndex = 0; // Active image index
-var totalSlides = 4; // Total number of slides
+let currentIndex = 0; // Active image index
+let totalSlides = 4; // Total number of slides
 
 // Show or hide text based on the active image index
 function showText() {
@@ -10,7 +10,7 @@ function showText() {
     .forEach((text) => (text.style.opacity = "0"));
 
   // Show the corresponding text for the active slide
-  var activeText = document.querySelector(`#content${currentIndex + 1} .text`);
+  let activeText = document.querySelector(`#content${currentIndex + 1} .text`);
   if (activeText) activeText.style.opacity = "1";
 }
 
@@ -67,8 +67,8 @@ updateSlider();
 
 // Event listener for hover effect (overlay and text)
 document.querySelectorAll(".image_container").forEach((container) => {
-  var overlay = container.querySelector(".overlay");
-  var text = container.querySelector(".text");
+  let overlay = container.querySelector(".overlay");
+  let text = container.querySelector(".text");
 
   container.addEventListener("mouseenter", () => {
     overlay.style.width = "85%"; // Slide overlay to full width
