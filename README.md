@@ -137,6 +137,7 @@ To see the project in action, download and view the demo video:
    GOOGLE_CLIENT_ID=your-google-client-id
    GOOGLE_CLIENT_SECRET=your-google-client-secret
    SESSION_SECRET=your-session-secret
+   NEWS_API_KEY="your-news-api-key"
    ```
 4. Set up the PostgreSQL database:
 
