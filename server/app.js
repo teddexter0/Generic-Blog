@@ -22,25 +22,22 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const saltRounds = 10;
+
+const port = process.env.PORT || 3000;
+
 const db = new pg.Client({
-  host: process.env.PG_HOST,
-  user: process.env.PG_USER,
-  password: process.env.PG_PASSWORD, // Ensure it's a string
-  database: process.env.PG_DATABASE,
-  port: process.env.PG_PORT, // Ensure port is a number
+  connectionString: process.env.DATABASE_URL,
+  ssl:
+    process.env.NODE_ENV === "production"
+      ? { rejectUnauthorized: false }
+      : false,
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error("Database connection error:", err.stack);
-  } else {
-    console.log("Connected to the database.");
-  }
-});
+db.connect()
+  .then(() => console.log("Connected to PostgreSQL 🚀"))
+  .catch((err) => console.error("Database connection error:", err));
 
 const app = express();
-const port = 3000;
-
 // Set the view engine to EJS
 app.set("view engine", "ejs");
 // Explicitly set the path to the views folder
