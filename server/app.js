@@ -25,17 +25,10 @@ const saltRounds = 10;
 
 const port = process.env.PORT || 3000;
 
-const db = new pg.Client(
-  process.env.NODE_ENV === "production"
-    ? {
-        connectionString: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false },
-      }
-    : {
-        connectionString:
-          "postgres://postgres:Candidate2019@localhost:5432/blog",
-      }
-);
+const db = new pg.Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
+});
 
 db.connect()
   .then(() => console.log("Connected to PostgreSQL 🚀"))
