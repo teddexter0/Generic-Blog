@@ -9,6 +9,7 @@
     height: 100%;
     min-height: 100vh;
     overflow-y: auto; /* Allows vertical scrolling */
+    min-width: 100vw;
     width: 100%;
     background: linear-gradient(45deg, #A50044, #004D98, #ed6b00); /* Barca colors */
     background-size: 500em 500em; /* Oversized for animation effect */
