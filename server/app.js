@@ -28,7 +28,7 @@ const port = process.env.PORT || 3000;
 const db = new pg.Client({
   connectionString:
     process.env.NODE_ENV === "production"
-      ? process.env.DB_HOST
+      ? process.env.PB_HOST
       : process.env.DATABASE_URL,
   ssl:
     process.env.NODE_ENV === "production"
